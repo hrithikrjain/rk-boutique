@@ -1,95 +1,291 @@
-# ─── Decap CMS Configuration ─────────────────────────────────────────────────
-# Phase 2: Activate this by enabling Netlify Identity + Git Gateway.
-# See: https://decapcms.org/docs/netlify-identity-widget/
+# ─── Decap CMS Configuration ──────────────────────────────────────────────────
+# All content files live under public/ so they are deployed as static assets.
+# The React app fetches them at runtime from /content/*.json
+#
+# ACTIVATION STEPS:
+#   1. Netlify dashboard > Site settings > Identity > Enable Identity
+#   2. Identity > Services > Enable Git Gateway
+#   3. Identity > Registration > Set to "Invite only"
+#   4. Invite the store owner: Identity > Users > Invite users
+#   5. Uncomment site_url below with your live Netlify URL
+#   6. Owner logs in at https://your-site.netlify.app/admin/
+#
+# LOCAL DEV: run `npx decap-server` in project root, then uncomment local_backend
 
 backend:
   name: git-gateway
   branch: main
 
-# Media files will be stored in the repo under public/images/uploads
+# local_backend: true
+
+# site_url: https://rkboutique.netlify.app
+# display_url: https://rkboutique.netlify.app
+
+# Image uploads → public/images/uploads/ → served at /images/uploads/
 media_folder: public/images/uploads
 public_folder: /images/uploads
 
-# Site URL for preview links
-# site_url: https://rkboutique.netlify.app
-
 collections:
 
-  # ── Site Settings ──────────────────────────────────────────────────────────
+  # ── Brand, Hero & About ──────────────────────────────────────────────────
+  # Written to: public/content/site.json → served at /content/site.json
   - name: site_settings
     label: Site Settings
     files:
+
       - name: general
-        label: General Settings
-        file: src/content/site.json
+        label: Brand, Hero & About
+        file: public/content/site.json
         fields:
-          - { label: Brand Name, name: brandName, widget: string }
-          - { label: Tagline, name: tagline, widget: string }
-          - { label: Hero Headline, name: heroHeadline, widget: text }
-          - { label: Hero Subtext, name: heroSubtext, widget: text }
-          - { label: About Title, name: aboutTitle, widget: string }
+          - label: Brand Name
+            name: brandName
+            widget: string
+            hint: "Shown in the navbar and footer"
+
+          - label: Tagline
+            name: tagline
+            widget: string
+            hint: "Short descriptor under the logo, e.g. Designer Ethnic & Indo-Western Fashion"
+
+          - label: Hero Headline
+            name: heroHeadline
+            widget: text
+            hint: "Main hero title. Use a newline to split into two lines."
+
+          - label: Hero Subtext
+            name: heroSubtext
+            widget: text
+            hint: "Supporting sentence shown under the hero headline"
+
+          - label: About Section Label
+            name: aboutTitle
+            widget: string
+            hint: "Small eyebrow label above the heading, e.g. Our Story"
+
           - label: About Body Paragraphs
             name: aboutBody
             widget: list
-            field: { label: Paragraph, name: paragraph, widget: text }
-          - { label: About Quote, name: aboutQuote, widget: string }
+            summary: "{{fields.paragraph}}"
+            field:
+              label: Paragraph
+              name: paragraph
+              widget: text
 
+          - label: About Pull Quote
+            name: aboutQuote
+            widget: string
+            hint: "Italic blockquote shown in the About section"
+
+          - label: Instagram Bio
+            name: instagramBio
+            widget: text
+            hint: "Short brand description shown in the Social section"
+
+      # ── Contact Details ────────────────────────────────────────────────
+      # Written to: public/content/contact.json → served at /content/contact.json
       - name: contact
         label: Contact Details
-        file: src/content/contact.json
+        file: public/content/contact.json
         fields:
-          - { label: Phone, name: phone, widget: string }
-          - { label: WhatsApp Number, name: whatsapp, widget: string, hint: "Include country code, e.g. +919867426461" }
-          - { label: Store Address, name: address, widget: text }
-          - { label: Google Maps URL, name: mapsUrl, widget: string }
-          - { label: Instagram URL, name: instagramUrl, widget: string }
-          - { label: Instagram Handle, name: instagramHandle, widget: string }
+          - label: Phone Number
+            name: phone
+            widget: string
+            hint: "Digits only, no spaces — e.g. 9867426461"
 
-  # ── Gallery Items ──────────────────────────────────────────────────────────
+          - label: WhatsApp Number
+            name: whatsapp
+            widget: string
+            hint: "Full international format — e.g. +919867426461. Used for the inquiry cart."
+
+          - label: Store Address
+            name: address
+            widget: text
+            hint: "Full postal address shown in the contact section and footer"
+
+          - label: Google Maps URL
+            name: mapsUrl
+            widget: string
+            hint: "Paste the full Google Maps share link"
+
+          - label: Instagram URL
+            name: instagramUrl
+            widget: string
+            hint: "Full URL — e.g. https://www.instagram.com/rkboutique9/"
+
+          - label: Instagram Handle
+            name: instagramHandle
+            widget: string
+            hint: "Include the @ symbol — e.g. @rkboutique9"
+
+  # ── Collection Cards ─────────────────────────────────────────────────────
+  # Written to: public/content/categories/{casual,party,wedding}.json
+  - name: categories
+    label: Collection Cards
+    files:
+
+      - name: casual
+        label: Casual Collection Card
+        file: public/content/categories/casual.json
+        fields:
+          - { label: Title, name: title, widget: string }
+          - label: Description
+            name: description
+            widget: text
+            hint: "One or two sentences shown on the card"
+
+      - name: party
+        label: Party Wear Collection Card
+        file: public/content/categories/party.json
+        fields:
+          - { label: Title, name: title, widget: string }
+          - { label: Description, name: description, widget: text }
+
+      - name: wedding
+        label: Wedding Collection Card
+        file: public/content/categories/wedding.json
+        fields:
+          - { label: Title, name: title, widget: string }
+          - { label: Description, name: description, widget: text }
+
+  # ── Gallery Items ─────────────────────────────────────────────────────────
+  # Written to: public/content/gallery/RK-CAS-01.json etc.
+  # Served at: /content/gallery/*.json
+  # Existing images are already at: /images/gallery/{casual,party,wedding}/
   - name: gallery
     label: Gallery
     label_singular: Gallery Item
-    folder: src/content/gallery
+    folder: public/content/gallery
     create: true
+    format: json
     slug: "{{fields.code}}"
+    summary: "{{fields.code}} — {{fields.title}} ({{fields.category}})"
+    sortable_fields: ["sortOrder", "title", "category", "code"]
     fields:
-      - { label: Title, name: title, widget: string }
+      - label: Internal ID
+        name: id
+        widget: string
+        hint: "Unique lowercase slug — e.g. cas-01"
+
+      - label: Title
+        name: title
+        widget: string
+        hint: "Display name on the gallery card and inquiry cart"
+
       - label: Category
         name: category
         widget: select
         options:
-          - { label: Casual, value: casual }
-          - { label: Party Wear, value: party }
-          - { label: Wedding, value: wedding }
-      - { label: Image, name: image, widget: image }
-      - { label: Item Code, name: code, widget: string, hint: "e.g. RK-CAS-01. Leave blank for auto-generation." }
-      - { label: Description, name: description, widget: text }
-      - { label: Available, name: available, widget: boolean, default: true }
-      - { label: Sort Order, name: sortOrder, widget: number, default: 1 }
+          - { label: "Casual", value: casual }
+          - { label: "Party Wear", value: party }
+          - { label: "Wedding", value: wedding }
 
-  # ── Testimonials ───────────────────────────────────────────────────────────
+      - label: Image
+        name: image
+        widget: image
+        hint: "Upload a new photo or type an existing path, e.g. /images/gallery/casual/filename.jpg"
+
+      - label: Item Code
+        name: code
+        widget: string
+        hint: "Reference code sent in the WhatsApp inquiry — e.g. RK-CAS-01"
+
+      - label: Description
+        name: description
+        widget: text
+        hint: "Short product description shown in the lightbox"
+
+      - label: Available
+        name: available
+        widget: boolean
+        default: true
+        hint: "Uncheck to hide this item from the public gallery"
+
+      - label: Sort Order
+        name: sortOrder
+        widget: number
+        value_type: int
+        min: 1
+        default: 1
+        hint: "Controls display order within the same category. Lower = appears first."
+
+  # ── Customer Reviews ──────────────────────────────────────────────────────
+  # Written to: public/content/testimonials/{id}.json
   - name: testimonials
-    label: Testimonials
-    label_singular: Testimonial
-    folder: src/content/testimonials
+    label: Customer Reviews
+    label_singular: Review
+    folder: public/content/testimonials
     create: true
+    format: json
     slug: "{{fields.id}}"
+    summary: "{{fields.name}} — {{fields.rating}} stars"
     fields:
-      - { label: ID, name: id, widget: string }
-      - { label: Customer Name, name: name, widget: string }
-      - { label: Rating, name: rating, widget: number, min: 1, max: 5, default: 5 }
-      - { label: Review, name: review, widget: text }
-      - { label: Review URL (Google Maps), name: reviewUrl, widget: string, required: false }
+      - label: Internal ID
+        name: id
+        widget: string
+        hint: "Unique slug — e.g. vanita-kandhari"
 
-  # ── Why Us Points ──────────────────────────────────────────────────────────
+      - label: Customer Name
+        name: name
+        widget: string
+
+      - label: Star Rating
+        name: rating
+        widget: number
+        value_type: int
+        min: 1
+        max: 5
+        default: 5
+
+      - label: Review Text
+        name: review
+        widget: text
+
+      - label: Google Maps Review URL
+        name: reviewUrl
+        widget: string
+        required: false
+        hint: "Optional — links to the original Google Maps review"
+
+  # ── Why Choose Us Points ──────────────────────────────────────────────────
+  # Written to: public/content/why-us/{id}.json
   - name: why_us
     label: Why Choose Us
     label_singular: Feature Point
-    folder: src/content/why-us
+    folder: public/content/why-us
     create: true
+    format: json
     slug: "{{fields.id}}"
+    summary: "{{fields.title}}"
     fields:
-      - { label: ID, name: id, widget: string }
-      - { label: Icon Name, name: icon, widget: string, hint: "Lucide icon name, e.g. Sparkles, Tag, Heart" }
-      - { label: Title, name: title, widget: string }
-      - { label: Description, name: description, widget: text }
+      - label: Internal ID
+        name: id
+        widget: string
+        hint: "Unique slug — e.g. curated, affordable, alterations"
+
+      - label: Icon
+        name: icon
+        widget: select
+        hint: "Lucide React icon rendered on the feature card"
+        options:
+          - { label: "Sparkles  — curated / quality", value: Sparkles }
+          - { label: "Tag  — pricing / value", value: Tag }
+          - { label: "Calendar  — occasions", value: Calendar }
+          - { label: "Scissors  — alterations", value: Scissors }
+          - { label: "Layers  — variety / fabrics", value: Layers }
+          - { label: "Heart  — personal service", value: Heart }
+          - { label: "Star  — excellence", value: Star }
+          - { label: "Award  — trust", value: Award }
+          - { label: "Gift  — gifting", value: Gift }
+          - { label: "MapPin  — location", value: MapPin }
+          - { label: "ShoppingBag  — shopping", value: ShoppingBag }
+          - { label: "Zap  — speed", value: Zap }
+
+      - label: Title
+        name: title
+        widget: string
+        hint: "Short bold heading on the card — e.g. Expertly Curated"
+
+      - label: Description
+        name: description
+        widget: text
+        hint: "Two to three sentences explaining this point"
