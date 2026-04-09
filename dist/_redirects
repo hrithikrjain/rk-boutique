@@ -1,0 +1,6 @@
+# Netlify redirects for SPA routing
+# Admin CMS panel
+/admin/*   /admin/index.html  200
+
+# React SPA — catch-all
+/*         /index.html        200

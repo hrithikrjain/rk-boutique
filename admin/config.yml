@@ -1,0 +1,95 @@
+# ─── Decap CMS Configuration ─────────────────────────────────────────────────
+# Phase 2: Activate this by enabling Netlify Identity + Git Gateway.
+# See: https://decapcms.org/docs/netlify-identity-widget/
+
+backend:
+  name: git-gateway
+  branch: main
+
+# Media files will be stored in the repo under public/images/uploads
+media_folder: public/images/uploads
+public_folder: /images/uploads
+
+# Site URL for preview links
+# site_url: https://rkboutique.netlify.app
+
+collections:
+
+  # ── Site Settings ──────────────────────────────────────────────────────────
+  - name: site_settings
+    label: Site Settings
+    files:
+      - name: general
+        label: General Settings
+        file: src/content/site.json
+        fields:
+          - { label: Brand Name, name: brandName, widget: string }
+          - { label: Tagline, name: tagline, widget: string }
+          - { label: Hero Headline, name: heroHeadline, widget: text }
+          - { label: Hero Subtext, name: heroSubtext, widget: text }
+          - { label: About Title, name: aboutTitle, widget: string }
+          - label: About Body Paragraphs
+            name: aboutBody
+            widget: list
+            field: { label: Paragraph, name: paragraph, widget: text }
+          - { label: About Quote, name: aboutQuote, widget: string }
+
+      - name: contact
+        label: Contact Details
+        file: src/content/contact.json
+        fields:
+          - { label: Phone, name: phone, widget: string }
+          - { label: WhatsApp Number, name: whatsapp, widget: string, hint: "Include country code, e.g. +919867426461" }
+          - { label: Store Address, name: address, widget: text }
+          - { label: Google Maps URL, name: mapsUrl, widget: string }
+          - { label: Instagram URL, name: instagramUrl, widget: string }
+          - { label: Instagram Handle, name: instagramHandle, widget: string }
+
+  # ── Gallery Items ──────────────────────────────────────────────────────────
+  - name: gallery
+    label: Gallery
+    label_singular: Gallery Item
+    folder: src/content/gallery
+    create: true
+    slug: "{{fields.code}}"
+    fields:
+      - { label: Title, name: title, widget: string }
+      - label: Category
+        name: category
+        widget: select
+        options:
+          - { label: Casual, value: casual }
+          - { label: Party Wear, value: party }
+          - { label: Wedding, value: wedding }
+      - { label: Image, name: image, widget: image }
+      - { label: Item Code, name: code, widget: string, hint: "e.g. RK-CAS-01. Leave blank for auto-generation." }
+      - { label: Description, name: description, widget: text }
+      - { label: Available, name: available, widget: boolean, default: true }
+      - { label: Sort Order, name: sortOrder, widget: number, default: 1 }
+
+  # ── Testimonials ───────────────────────────────────────────────────────────
+  - name: testimonials
+    label: Testimonials
+    label_singular: Testimonial
+    folder: src/content/testimonials
+    create: true
+    slug: "{{fields.id}}"
+    fields:
+      - { label: ID, name: id, widget: string }
+      - { label: Customer Name, name: name, widget: string }
+      - { label: Rating, name: rating, widget: number, min: 1, max: 5, default: 5 }
+      - { label: Review, name: review, widget: text }
+      - { label: Review URL (Google Maps), name: reviewUrl, widget: string, required: false }
+
+  # ── Why Us Points ──────────────────────────────────────────────────────────
+  - name: why_us
+    label: Why Choose Us
+    label_singular: Feature Point
+    folder: src/content/why-us
+    create: true
+    slug: "{{fields.id}}"
+    fields:
+      - { label: ID, name: id, widget: string }
+      - { label: Icon Name, name: icon, widget: string, hint: "Lucide icon name, e.g. Sparkles, Tag, Heart" }
+      - { label: Title, name: title, widget: string }
+      - { label: Description, name: description, widget: text }
