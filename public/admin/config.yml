@@ -90,12 +90,12 @@ collections:
           - label: Phone Number
             name: phone
             widget: string
-            hint: "Digits only, no spaces — e.g. 9867426461"
+            hint: "Digits only, no spaces, e.g. 9867426461"
 
           - label: WhatsApp Number
             name: whatsapp
             widget: string
-            hint: "Full international format — e.g. +919867426461. Used for the inquiry cart."
+            hint: "Full international format, e.g. +919867426461. Used for the inquiry cart."
 
           - label: Store Address
             name: address
@@ -110,12 +110,12 @@ collections:
           - label: Instagram URL
             name: instagramUrl
             widget: string
-            hint: "Full URL — e.g. https://www.instagram.com/rkboutique9/"
+            hint: "Full URL, e.g. https://www.instagram.com/rkboutique9/"
 
           - label: Instagram Handle
             name: instagramHandle
             widget: string
-            hint: "Include the @ symbol — e.g. @rkboutique9"
+            hint: "Include the @ symbol, e.g. @rkboutique9"
 
   # ── Collection Cards ─────────────────────────────────────────────────────
   # Written to: public/content/categories/{casual,party,wedding}.json
@@ -148,9 +148,9 @@ collections:
           - { label: Description, name: description, widget: text }
 
   # ── Gallery Items ─────────────────────────────────────────────────────────
-  # Written to: public/content/gallery/RK-CAS-01.json etc.
-  # Served at: /content/gallery/*.json
-  # Existing images are already at: /images/gallery/{casual,party,wedding}/
+  # Content written to: public/content/gallery/RK-CAS-01.json etc.
+  # Images stored at:   public/images/gallery/ (where all gallery photos already live)
+  # Image paths in JSON resolve to: /images/gallery/filename.jpg
   - name: gallery
     label: Gallery
     label_singular: Gallery Item
@@ -158,13 +158,15 @@ collections:
     create: true
     format: json
     slug: "{{fields.code}}"
-    summary: "{{fields.code}} — {{fields.title}} ({{fields.category}})"
+    summary: "{{fields.code}} | {{fields.title}} ({{fields.category}})"
     sortable_fields: ["sortOrder", "title", "category", "code"]
+    media_folder: public/images/gallery
+    public_folder: /images/gallery
     fields:
       - label: Internal ID
         name: id
         widget: string
-        hint: "Unique lowercase slug — e.g. cas-01"
+        hint: "Unique lowercase slug, e.g. cas-01"
 
       - label: Title
         name: title
@@ -182,12 +184,12 @@ collections:
       - label: Image
         name: image
         widget: image
-        hint: "Upload a new photo or type an existing path, e.g. /images/gallery/casual/filename.jpg"
+        hint: "Uploads go to public/images/gallery/. Existing images are already there."
 
       - label: Item Code
         name: code
         widget: string
-        hint: "Reference code sent in the WhatsApp inquiry — e.g. RK-CAS-01"
+        hint: "Reference code sent in the WhatsApp inquiry, e.g. RK-CAS-01"
 
       - label: Description
         name: description
@@ -206,7 +208,7 @@ collections:
         value_type: int
         min: 1
         default: 1
-        hint: "Controls display order within the same category. Lower = appears first."
+        hint: "Controls display order within the same category. Lower number appears first."
 
   # ── Customer Reviews ──────────────────────────────────────────────────────
   # Written to: public/content/testimonials/{id}.json
@@ -217,12 +219,12 @@ collections:
     create: true
     format: json
     slug: "{{fields.id}}"
-    summary: "{{fields.name}} — {{fields.rating}} stars"
+    summary: "{{fields.name}} | {{fields.rating}} stars"
     fields:
       - label: Internal ID
         name: id
         widget: string
-        hint: "Unique slug — e.g. vanita-kandhari"
+        hint: "Unique slug, e.g. vanita-kandhari"
 
       - label: Customer Name
         name: name
@@ -244,7 +246,7 @@ collections:
         name: reviewUrl
         widget: string
         required: false
-        hint: "Optional — links to the original Google Maps review"
+        hint: "Optional. Links to the original Google Maps review."
 
   # ── Why Choose Us Points ──────────────────────────────────────────────────
   # Written to: public/content/why-us/{id}.json
@@ -260,30 +262,30 @@ collections:
       - label: Internal ID
         name: id
         widget: string
-        hint: "Unique slug — e.g. curated, affordable, alterations"
+        hint: "Unique slug, e.g. curated, affordable, alterations"
 
       - label: Icon
         name: icon
         widget: select
         hint: "Lucide React icon rendered on the feature card"
         options:
-          - { label: "Sparkles  — curated / quality", value: Sparkles }
-          - { label: "Tag  — pricing / value", value: Tag }
-          - { label: "Calendar  — occasions", value: Calendar }
-          - { label: "Scissors  — alterations", value: Scissors }
-          - { label: "Layers  — variety / fabrics", value: Layers }
-          - { label: "Heart  — personal service", value: Heart }
-          - { label: "Star  — excellence", value: Star }
-          - { label: "Award  — trust", value: Award }
-          - { label: "Gift  — gifting", value: Gift }
-          - { label: "MapPin  — location", value: MapPin }
-          - { label: "ShoppingBag  — shopping", value: ShoppingBag }
-          - { label: "Zap  — speed", value: Zap }
+          - { label: "Sparkles (curated / quality)", value: Sparkles }
+          - { label: "Tag (pricing / value)", value: Tag }
+          - { label: "Calendar (occasions)", value: Calendar }
+          - { label: "Scissors (alterations)", value: Scissors }
+          - { label: "Layers (variety / fabrics)", value: Layers }
+          - { label: "Heart (personal service)", value: Heart }
+          - { label: "Star (excellence)", value: Star }
+          - { label: "Award (trust)", value: Award }
+          - { label: "Gift (gifting)", value: Gift }
+          - { label: "MapPin (location)", value: MapPin }
+          - { label: "ShoppingBag (shopping)", value: ShoppingBag }
+          - { label: "Zap (speed)", value: Zap }
 
       - label: Title
         name: title
         widget: string
-        hint: "Short bold heading on the card — e.g. Expertly Curated"
+        hint: "Short bold heading on the card, e.g. Expertly Curated"
 
       - label: Description
         name: description
