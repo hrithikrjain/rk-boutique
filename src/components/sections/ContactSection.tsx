@@ -1,10 +1,11 @@
 import { Phone, MessageCircle, MapPin, Instagram, ExternalLink, Clock } from 'lucide-react';
 import { useScrollReveal, useStaggerReveal } from '../../hooks/useScrollReveal';
-import { siteData } from '../../data/siteData';
+import { useContent } from '../../context/ContentContext';
 import { WhatsAppButton } from '../ui/WhatsAppButton';
 import { getCallUrl } from '../../utils/whatsapp';
 
 export function ContactSection() {
+  const { siteData } = useContent();
   const headerRef = useScrollReveal<HTMLDivElement>();
   const cardsRef = useStaggerReveal<HTMLDivElement>({ threshold: 0.1 });
 

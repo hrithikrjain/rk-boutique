@@ -10,10 +10,8 @@ import { InstagramSection } from './components/sections/InstagramSection';
 import { TestimonialsSection } from './components/sections/TestimonialsSection';
 import { ContactSection } from './components/sections/ContactSection';
 import { CartDrawer } from './components/ui/CartDrawer';
+import { ContentProvider } from './context/ContentContext';
 import type { GalleryCategory } from './types';
-
-// Phase 2 CMS note: When migrating to Decap CMS, replace static imports above
-// with data fetched from /content/*.json and pass as props to each section.
 
 export default function App() {
   // Ref to gallery section — used to scroll + pre-filter from category cards
@@ -30,6 +28,7 @@ export default function App() {
   }, []);
 
   return (
+    <ContentProvider>
     <div className="min-h-screen bg-primary">
       {/* Fixed navigation */}
       <Navbar />
@@ -49,8 +48,8 @@ export default function App() {
       {/* Footer */}
       <Footer />
 
-      {/* Inquiry cart drawer — global overlay */}
       <CartDrawer />
     </div>
+    </ContentProvider>
   );
 }

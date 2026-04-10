@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Menu, X, ShoppingBag, MessageCircle } from 'lucide-react';
-import { siteData } from '../../data/siteData';
+import { useContent } from '../../context/ContentContext';
 import { useCart } from '../../context/CartContext';
 import { getWhatsAppChatUrl } from '../../utils/whatsapp';
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { siteData } = useContent();
   const { itemCount, toggleCart } = useCart();
 
   useEffect(() => {

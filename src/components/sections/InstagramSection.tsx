@@ -1,19 +1,17 @@
 import { Instagram, ArrowRight } from 'lucide-react';
 import { useScrollReveal, useStaggerReveal } from '../../hooks/useScrollReveal';
-import { siteData } from '../../data/siteData';
-import { galleryItems } from '../../data/galleryData';
-
-// Pick 6 images for the Instagram grid mockup — spread across categories
-const gridImages = [
-  galleryItems.find((i) => i.category === 'party' && i.sortOrder === 1)!.image,
-  galleryItems.find((i) => i.category === 'wedding' && i.sortOrder === 1)!.image,
-  galleryItems.find((i) => i.category === 'casual' && i.sortOrder === 1)!.image,
-  galleryItems.find((i) => i.category === 'wedding' && i.sortOrder === 3)!.image,
-  galleryItems.find((i) => i.category === 'party' && i.sortOrder === 3)!.image,
-  galleryItems.find((i) => i.category === 'casual' && i.sortOrder === 2)!.image,
-];
+import { useContent } from '../../context/ContentContext';
 
 export function InstagramSection() {
+  const { siteData, galleryItems } = useContent();
+  const gridImages = [
+    galleryItems.find((i) => i.category === 'party' && i.sortOrder === 1)?.image ?? '',
+    galleryItems.find((i) => i.category === 'wedding' && i.sortOrder === 1)?.image ?? '',
+    galleryItems.find((i) => i.category === 'casual' && i.sortOrder === 1)?.image ?? '',
+    galleryItems.find((i) => i.category === 'wedding' && i.sortOrder === 3)?.image ?? '',
+    galleryItems.find((i) => i.category === 'party' && i.sortOrder === 3)?.image ?? '',
+    galleryItems.find((i) => i.category === 'casual' && i.sortOrder === 2)?.image ?? '',
+  ].filter(Boolean);
   const headerRef = useScrollReveal<HTMLDivElement>();
   const gridRef = useStaggerReveal<HTMLDivElement>({ threshold: 0.1 });
 

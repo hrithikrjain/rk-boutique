@@ -1,15 +1,13 @@
 import { useScrollReveal, useStaggerReveal } from '../../hooks/useScrollReveal';
-import { siteData } from '../../data/siteData';
-import { galleryItems } from '../../data/galleryData';
-
-// Pick 3 aesthetically varied images for the collage
-const collageImages = [
-  galleryItems.find((i) => i.category === 'wedding' && i.sortOrder === 2)!.image,
-  galleryItems.find((i) => i.category === 'party' && i.sortOrder === 1)!.image,
-  galleryItems.find((i) => i.category === 'casual' && i.sortOrder === 3)!.image,
-];
+import { useContent } from '../../context/ContentContext';
 
 export function AboutSection() {
+  const { siteData, galleryItems } = useContent();
+  const collageImages = [
+    galleryItems.find((i) => i.category === 'wedding' && i.sortOrder === 2)?.image ?? '',
+    galleryItems.find((i) => i.category === 'party' && i.sortOrder === 1)?.image ?? '',
+    galleryItems.find((i) => i.category === 'casual' && i.sortOrder === 3)?.image ?? '',
+  ];
   const titleRef = useScrollReveal<HTMLDivElement>();
   const bodyRef = useStaggerReveal<HTMLDivElement>();
   const imageRef = useScrollReveal<HTMLDivElement>({ threshold: 0.1 });

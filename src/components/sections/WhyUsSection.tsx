@@ -8,7 +8,7 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import { useScrollReveal, useStaggerReveal } from '../../hooks/useScrollReveal';
-import { siteData } from '../../data/siteData';
+import { useContent } from '../../context/ContentContext';
 
 // Map icon string names to Lucide components
 const iconMap: Record<string, LucideIcon> = {
@@ -21,6 +21,7 @@ const iconMap: Record<string, LucideIcon> = {
 };
 
 export function WhyUsSection() {
+  const { siteData } = useContent();
   const headerRef = useScrollReveal<HTMLDivElement>();
   const gridRef = useStaggerReveal<HTMLDivElement>({ threshold: 0.08 });
 

@@ -1,9 +1,10 @@
 import { Star } from 'lucide-react';
 import { useScrollReveal, useStaggerReveal } from '../../hooks/useScrollReveal';
 import { TestimonialCard } from '../ui/TestimonialCard';
-import { testimonials } from '../../data/testimonialsData';
+import { useContent } from '../../context/ContentContext';
 
 export function TestimonialsSection() {
+  const { testimonials } = useContent();
   const headerRef = useScrollReveal<HTMLDivElement>();
   const gridRef = useStaggerReveal<HTMLDivElement>({ threshold: 0.08 });
 

@@ -1,7 +1,7 @@
 import { useState, useCallback, forwardRef, useEffect } from 'react';
 import { GalleryCard } from '../ui/GalleryCard';
 import { Lightbox } from '../ui/Lightbox';
-import { galleryItems } from '../../data/galleryData';
+import { useContent } from '../../context/ContentContext';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
 import type { GalleryItem, GalleryCategory } from '../../types';
 
@@ -20,6 +20,7 @@ interface GallerySectionProps {
 
 export const GallerySection = forwardRef<HTMLElement, GallerySectionProps>(
   ({ defaultFilter = 'all' }, ref) => {
+    const { galleryItems } = useContent();
     const [activeFilter, setActiveFilter] = useState<FilterTab>(defaultFilter);
     const [lightboxItem, setLightboxItem] = useState<GalleryItem | null>(null);
     const headerRef = useScrollReveal<HTMLDivElement>();

@@ -1,8 +1,9 @@
 import { Instagram, MessageCircle, MapPin, Phone } from 'lucide-react';
-import { siteData } from '../../data/siteData';
+import { useContent } from '../../context/ContentContext';
 import { getWhatsAppChatUrl, getCallUrl } from '../../utils/whatsapp';
 
 export function Footer() {
+  const { siteData } = useContent();
   const { contact, navLinks, brandName } = siteData;
   const year = new Date().getFullYear();
 

@@ -1,16 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowRight, MapPin } from 'lucide-react';
-import { siteData } from '../../data/siteData';
-import { galleryItems } from '../../data/galleryData';
-
-// Pick 3 hero images — one from each category
-const heroImages = [
-  galleryItems.find((i) => i.category === 'wedding')!.image,
-  galleryItems.find((i) => i.category === 'party')!.image,
-  galleryItems.find((i) => i.category === 'casual')!.image,
-];
+import { useContent } from '../../context/ContentContext';
 
 export function HeroSection() {
+  const { siteData, galleryItems } = useContent();
+  const heroImages = [
+    galleryItems.find((i) => i.category === 'wedding')?.image ?? '',
+    galleryItems.find((i) => i.category === 'party')?.image ?? '',
+    galleryItems.find((i) => i.category === 'casual')?.image ?? '',
+  ];
   const [scrollY, setScrollY] = useState(0);
   const [loaded, setLoaded] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);

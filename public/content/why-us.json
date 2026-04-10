@@ -1,0 +1,40 @@
+{
+  "items": [
+    {
+      "id": "curated",
+      "icon": "Sparkles",
+      "title": "Expertly Curated",
+      "description": "Every piece is handpicked for quality, fabric, and design. No fast fashion, only thoughtfully chosen ethnic and fusion wear."
+    },
+    {
+      "id": "affordable",
+      "icon": "Tag",
+      "title": "Reasonable Pricing",
+      "description": "Premium boutique fashion at prices that celebrate every woman, not just those with luxury budgets."
+    },
+    {
+      "id": "occasions",
+      "icon": "Calendar",
+      "title": "Every Occasion",
+      "description": "From casual day wear to grand wedding ensembles, our collection covers the full spectrum of a woman's wardrobe."
+    },
+    {
+      "id": "alterations",
+      "icon": "Scissors",
+      "title": "On-the-Spot Alterations",
+      "description": "Walk in, try it on, and walk out in a perfect fit. Our skilled team handles alterations right at the store."
+    },
+    {
+      "id": "variety",
+      "icon": "Layers",
+      "title": "Endless Variety",
+      "description": "Muslin, gajji silk, cotton, and more. Fresh patterns and new designs arrive regularly so there's always something new to discover."
+    },
+    {
+      "id": "personal",
+      "icon": "Heart",
+      "title": "Personal Service",
+      "description": "Our warm, knowledgeable staff, led by Sanjay sir, treats every customer like family, ensuring you find exactly what you're looking for."
+    }
+  ]
+}
