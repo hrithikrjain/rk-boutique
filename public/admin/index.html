@@ -5,34 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>RK Boutique | Content Manager</title>
     <!--
-      ┌────────────────────────────────────────────────────────────────────────┐
-      │  PHASE 2: Decap CMS Admin Panel                                        │
-      │                                                                        │
-      │  To activate this admin panel:                                         │
-      │  1. Enable Netlify Identity on your Netlify site dashboard             │
-      │  2. Enable Git Gateway in Netlify Identity settings                    │
-      │  3. Add the Netlify Identity widget script to your main index.html     │
-      │  4. Invite the store owner as a user via Netlify Identity              │
-      │  5. The store owner can then log in at yoursite.netlify.app/admin      │
-      │                                                                        │
-      │  See: https://decapcms.org/docs/netlify-cms-intro/                    │
-      └────────────────────────────────────────────────────────────────────────┘
+      Cloudflare Pages + Decap CMS setup:
+      1. Add GITHUB_CLIENT_ID and GITHUB_CLIENT_SECRET in Cloudflare Pages.
+      2. Ensure /functions/api/auth.js and /functions/api/callback.js are deployed.
+      3. Use /admin/ to sign in with GitHub and edit content.
     -->
   </head>
   <body>
-    <!-- Decap CMS will mount here -->
+    <!-- Decap CMS mounts here -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    <script>
-  if (window.netlifyIdentity) {
-    window.netlifyIdentity.on("init", user => {
-      if (!user) {
-        window.netlifyIdentity.on("login", () => {
-          document.location.href = "/admin/";
-        });
-      }
-    });
-  }
-</script>
   </body>
 </html>

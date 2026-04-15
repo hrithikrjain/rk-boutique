@@ -1,25 +1,25 @@
 # Decap CMS Configuration
-# All content files live under public/ — deployed as static assets.
-# The React app reads them at runtime from /content/*.json
+# Content JSON files are stored under public/content and read by the React app at /content/*.json.
 #
-# ACTIVATION STEPS:
-#   1. Netlify dashboard > Site settings > Identity > Enable Identity
-#   2. Identity > Services > Enable Git Gateway
-#   3. Identity > Registration > Set to "Invite only"
-#   4. Invite the store owner: Identity > Users > Invite users
-#   5. Uncomment site_url below with your live Netlify URL
-#   6. Owner logs in at https://your-site.netlify.app/admin/
+# Cloudflare Pages setup notes:
+# - This project uses Decap GitHub backend with Cloudflare Pages Functions OAuth endpoints.
+# - Configure these Cloudflare Pages environment variables:
+#   GITHUB_CLIENT_ID
+#   GITHUB_CLIENT_SECRET
 #
-# LOCAL DEV: run `npx decap-server` in project root, then uncomment local_backend
+# Temporary domain in use:
+# - https://rk-boutique.pages.dev
+# Update site_url, display_url, and backend.base_url after custom domain go-live.
 
 backend:
-  name: git-gateway
+  name: github
+  repo: hrithikrjain/rk-boutique
   branch: main
+  base_url: https://rk-boutique.pages.dev
+  auth_endpoint: /api/auth
 
-# local_backend: true
-
-# site_url: https://rkboutique.netlify.app
-# display_url: https://rkboutique.netlify.app
+site_url: https://rk-boutique.pages.dev
+display_url: https://rk-boutique.pages.dev
 
 # Global fallback for non-gallery media uploads
 media_folder: public/images/uploads
