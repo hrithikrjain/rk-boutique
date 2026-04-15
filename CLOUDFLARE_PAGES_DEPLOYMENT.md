@@ -17,6 +17,7 @@ This project is configured for a standard Cloudflare Pages static deployment.
 
 Use these exact settings in **Cloudflare Dashboard > Workers & Pages > your project > Settings > Builds & deployments**:
 
+- Production branch: `migrate-to-cloudflare`
 - Framework preset: `None` (or `Vite`, as long as command/output stay exactly below)
 - Build command: `npm run build`
 - Build output directory: `dist`
@@ -38,4 +39,3 @@ In GitHub OAuth App configuration:
 - Authorization callback URL: `https://rk-boutique.pages.dev/api/callback`
 
 Update both URLs after moving to a custom domain.
-
