@@ -6,9 +6,11 @@
     <title>RK Boutique | Content Manager</title>
     <!--
       Cloudflare Pages + Decap CMS setup:
-      1. Add GITHUB_CLIENT_ID and GITHUB_CLIENT_SECRET in Cloudflare Pages.
-      2. Ensure /functions/api/auth.js and /functions/api/callback.js are deployed.
-      3. Use /admin/ to sign in with GitHub and edit content.
+      1. Deploy this repository with Cloudflare Pages static build settings (`npm run build`, `dist`).
+      2. Do not deploy with `npx wrangler deploy`.
+      3. Add GITHUB_CLIENT_ID and GITHUB_CLIENT_SECRET in Cloudflare Pages.
+      4. Ensure /functions/api/auth.js and /functions/api/callback.js are deployed.
+      5. Use /admin/ to sign in with GitHub and edit content.
     -->
   </head>
   <body>

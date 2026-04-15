@@ -2,6 +2,8 @@
 # Content JSON files are stored under public/content and read by the React app at /content/*.json.
 #
 # Cloudflare Pages setup notes:
+# - Deploy as a standard static Pages project (build: `npm run build`, output: `dist`).
+# - Do not use `npx wrangler deploy` for this site.
 # - This project uses Decap GitHub backend with Cloudflare Pages Functions OAuth endpoints.
 # - Configure these Cloudflare Pages environment variables:
 #   GITHUB_CLIENT_ID
