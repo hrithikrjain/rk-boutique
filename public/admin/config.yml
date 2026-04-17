@@ -197,7 +197,6 @@ collections:
                 name: image
                 widget: image
                 choose_url: false
-                pattern: ['^/images/gallery/.+', 'Please upload from media library only.']
                 media_library:
                   config:
                     max_file_size: 409600
