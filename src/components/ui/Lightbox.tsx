@@ -2,6 +2,7 @@ import { useEffect, useCallback } from 'react';
 import { X, ChevronLeft, ChevronRight, ShoppingBag, Check } from 'lucide-react';
 import type { GalleryItem } from '../../types';
 import { useCart } from '../../context/CartContext';
+import { ImageWatermark } from './ImageWatermark';
 
 interface LightboxProps {
   item: GalleryItem;
@@ -60,11 +61,14 @@ export function Lightbox({ item, items, onClose, onNavigate }: LightboxProps) {
       >
         {/* Image */}
         <div className="flex-1 flex items-center justify-center min-h-0">
-          <img
-            src={item.image}
-            alt={item.title}
-            className="max-h-[60vh] md:max-h-[80vh] w-auto max-w-full rounded-xl object-contain shadow-2xl"
-          />
+          <div className="relative inline-block">
+            <img
+              src={item.image}
+              alt={item.title}
+              className="max-h-[60vh] md:max-h-[80vh] w-auto max-w-full rounded-xl object-contain shadow-2xl"
+            />
+            <ImageWatermark mode="lightbox" />
+          </div>
         </div>
 
         {/* Details panel */}

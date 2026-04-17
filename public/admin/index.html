@@ -16,5 +16,153 @@
   <body>
     <!-- Decap CMS mounts here -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <script>
+      // Compress image uploads in Decap before commit so stored files remain <= 400KB.
+      (function () {
+        const MAX_UPLOAD_BYTES = 400 * 1024;
+        const SCALE_STEPS = [1, 0.92, 0.84, 0.76, 0.68, 0.6, 0.52, 0.44];
+        const QUALITY_STEPS = [0.92, 0.84, 0.76, 0.68, 0.6, 0.52, 0.44];
+        const SKIP_TYPES = new Set(['image/gif', 'image/svg+xml']);
+
+        function replaceExtension(filename, ext) {
+          const i = filename.lastIndexOf('.');
+          const base = i > -1 ? filename.slice(0, i) : filename;
+          return `${base}.${ext}`;
+        }
+
+        function pickOutputType(inputType) {
+          if (inputType === 'image/jpeg') return 'image/jpeg';
+          if (inputType === 'image/webp') return 'image/webp';
+          if (inputType === 'image/png') return 'image/png';
+          return 'image/jpeg';
+        }
+
+        function outputExtension(type) {
+          if (type === 'image/jpeg') return 'jpg';
+          if (type === 'image/png') return 'png';
+          if (type === 'image/webp') return 'webp';
+          return 'jpg';
+        }
+
+        function canvasToBlob(canvas, type, quality) {
+          return new Promise((resolve) => {
+            canvas.toBlob((blob) => resolve(blob), type, quality);
+          });
+        }
+
+        function loadImage(file) {
+          return new Promise((resolve, reject) => {
+            const objectUrl = URL.createObjectURL(file);
+            const img = new Image();
+            img.onload = () => {
+              URL.revokeObjectURL(objectUrl);
+              resolve(img);
+            };
+            img.onerror = () => {
+              URL.revokeObjectURL(objectUrl);
+              reject(new Error('Failed to load image'));
+            };
+            img.src = objectUrl;
+          });
+        }
+
+        async function encodeBestEffort(img, file, targetType) {
+          const canvas = document.createElement('canvas');
+          const srcW = img.naturalWidth || img.width;
+          const srcH = img.naturalHeight || img.height;
+          let smallest = null;
+
+          for (const scale of SCALE_STEPS) {
+            const width = Math.max(1, Math.round(srcW * scale));
+            const height = Math.max(1, Math.round(srcH * scale));
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d', { alpha: true });
+            if (!ctx) continue;
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';
+            ctx.clearRect(0, 0, width, height);
+            ctx.drawImage(img, 0, 0, width, height);
+
+            const qualities = targetType === 'image/png' ? [undefined] : QUALITY_STEPS;
+            for (const q of qualities) {
+              const blob = await canvasToBlob(canvas, targetType, q);
+              if (!blob) continue;
+              if (!smallest || blob.size < smallest.size) smallest = blob;
+              if (blob.size <= MAX_UPLOAD_BYTES) {
+                return blob;
+              }
+            }
+          }
+
+          // If PNG could not meet target, fallback to JPEG for stronger compression.
+          if (targetType === 'image/png') {
+            return encodeBestEffort(img, file, 'image/jpeg');
+          }
+
+          return smallest;
+        }
+
+        async function compressImage(file) {
+          if (!file || !file.type || !file.type.startsWith('image/')) return file;
+          if (SKIP_TYPES.has(file.type)) return file;
+          if (file.size <= MAX_UPLOAD_BYTES) return file;
+
+          try {
+            const img = await loadImage(file);
+            const primaryType = pickOutputType(file.type);
+            const blob = await encodeBestEffort(img, file, primaryType);
+            if (!blob || blob.size >= file.size) return file;
+
+            const outType = blob.type || primaryType;
+            const outName = replaceExtension(file.name, outputExtension(outType));
+            return new File([blob], outName, {
+              type: outType,
+              lastModified: Date.now(),
+            });
+          } catch (err) {
+            console.warn('Image compression failed; keeping original file.', err);
+            return file;
+          }
+        }
+
+        async function maybeProcessInput(input) {
+          if (!input.files || !input.files.length) return;
+          const original = Array.from(input.files);
+          const hasImage = original.some((f) => f.type && f.type.startsWith('image/'));
+          if (!hasImage) return;
+
+          const processed = await Promise.all(original.map((f) => compressImage(f)));
+          const changed = processed.some((f, i) => f !== original[i]);
+          if (!changed) return;
+
+          const dt = new DataTransfer();
+          processed.forEach((f) => dt.items.add(f));
+          input.files = dt.files;
+        }
+
+        document.addEventListener(
+          'change',
+          async (event) => {
+            const target = event.target;
+            if (!(target instanceof HTMLInputElement) || target.type !== 'file') return;
+
+            if (target.dataset.rkCompressionDone === '1') {
+              target.dataset.rkCompressionDone = '0';
+              return;
+            }
+
+            event.preventDefault();
+            event.stopImmediatePropagation();
+
+            await maybeProcessInput(target);
+
+            target.dataset.rkCompressionDone = '1';
+            target.dispatchEvent(new Event('change', { bubbles: true }));
+          },
+          true
+        );
+      })();
+    </script>
   </body>
 </html>

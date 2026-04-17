@@ -1,6 +1,7 @@
 import { ShoppingBag, Check, ZoomIn } from 'lucide-react';
 import type { GalleryItem } from '../../types';
 import { useCart } from '../../context/CartContext';
+import { ImageWatermark } from './ImageWatermark';
 
 interface GalleryCardProps {
   item: GalleryItem;
@@ -35,6 +36,8 @@ export function GalleryCard({ item, onOpenLightbox }: GalleryCardProps) {
         className="w-full h-auto block transition-transform duration-700 group-hover:scale-105"
         loading="lazy"
       />
+
+      <ImageWatermark mode="card" />
 
       {/* Hover overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400 flex flex-col justify-end p-4">
