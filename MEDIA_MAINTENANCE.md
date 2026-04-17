@@ -34,7 +34,7 @@ What the script does:
 
 - Workflow: `.github/workflows/gallery-media-size-guard.yml`
 - Trigger: push to `migrate-to-cloudflare` when gallery/content files change.
-- Behavior: fails the workflow if `public/images/gallery` exceeds `700MB`.
+- Behavior: fails the workflow if `public/images/gallery` exceeds `100MB`.
 - It does not auto-delete or auto-commit.
 
 ## Commit Size / History Growth

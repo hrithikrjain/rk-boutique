@@ -17,7 +17,7 @@ jobs:
     permissions:
       contents: read
     env:
-      MAX_GALLERY_MB: "700"
+      MAX_GALLERY_MB: "100"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
