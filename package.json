@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "media:prune:check": "node scripts/prune-unused-gallery-images.mjs --check",
+    "media:prune:write": "node scripts/prune-unused-gallery-images.mjs --write"
   },
   "dependencies": {
     "react": "^18.3.1",
