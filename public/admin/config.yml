@@ -16,7 +16,7 @@
 backend:
   name: github
   repo: hrithikrjain/rk-boutique
-  branch: main
+  branch: migrate-to-cloudflare
   base_url: https://rk-boutique.pages.dev
   auth_endpoint: /api/auth
 
