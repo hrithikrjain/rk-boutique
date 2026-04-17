@@ -26,9 +26,6 @@ display_url: https://rk-boutique.pages.dev
 # Global fallback for non-gallery media uploads
 media_folder: public/images/uploads
 public_folder: /images/uploads
-media_library:
-  config:
-    max_file_size: 409600
 
 collections:
 
@@ -201,6 +198,9 @@ collections:
                 widget: image
                 choose_url: false
                 pattern: ['^/images/gallery/.+', 'Please upload from media library only.']
+                media_library:
+                  config:
+                    max_file_size: 409600
                 hint: "Uploads go to public/images/gallery/. Existing photos are already there."
 
               - label: Item Code
