@@ -134,14 +134,26 @@ export function Footer() {
           <p className="font-body text-white/25 text-xs">
             © {year} {brandName}. All rights reserved.
           </p>
-          <a
-            href="https://morphedai.org"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-body text-white/20 hover:text-white/40 text-xs transition-colors duration-200"
-          >
-            Branding by Morphed AI Pvt Ltd
-          </a>
+          <div className="flex items-center gap-2.5">
+            <a
+              href="/admin/"
+              className="font-body text-white/20 hover:text-white/40 text-xs transition-colors duration-200"
+              aria-label="Admin login"
+            >
+              Admin Login
+            </a>
+            <span className="font-body text-white/15 text-xs" aria-hidden="true">
+              |
+            </span>
+            <a
+              href="https://morphedai.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-body text-white/20 hover:text-white/40 text-xs transition-colors duration-200"
+            >
+              Branding by Morphed AI Pvt Ltd
+            </a>
+          </div>
         </div>
       </div>
     </footer>
