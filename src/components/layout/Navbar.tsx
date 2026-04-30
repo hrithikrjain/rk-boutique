@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Menu, X, ShoppingBag, MessageCircle, Search } from 'lucide-react';
+import { Menu, X, ShoppingBag, MessageCircle, Search, Lock } from 'lucide-react';
 import { useContent } from '../../context/ContentContext';
 import { useCart } from '../../context/CartContext';
 import { getWhatsAppChatUrl } from '../../utils/whatsapp';
@@ -150,6 +150,15 @@ export function Navbar() {
           >
             <MessageCircle size={16} />
             Chat on WhatsApp
+          </a>
+
+          {/* Admin link */}
+          <a
+            href="/admin/"
+            className="flex items-center justify-center gap-2 w-full mt-3 border border-border-light text-text-muted hover:text-pink hover:border-pink/40 font-body text-xs py-2.5 rounded-xl transition-colors duration-200"
+          >
+            <Lock size={13} />
+            Admin Panel
           </a>
         </div>
       </div>

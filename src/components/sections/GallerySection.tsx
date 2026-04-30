@@ -1,9 +1,13 @@
 import { useState, useCallback, forwardRef, useEffect } from 'react';
+import { LayoutGrid, Grid3X3, AlignJustify } from 'lucide-react';
 import { GalleryCard } from '../ui/GalleryCard';
 import { Lightbox } from '../ui/Lightbox';
 import { useContent } from '../../context/ContentContext';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
 import type { GalleryItem, GalleryCategory } from '../../types';
+
+type GridCols = 1 | 2 | 3;
+const PAGE_SIZE = 10;
 
 type FilterTab = 'all' | GalleryCategory;
 
@@ -26,21 +30,30 @@ export const GallerySection = forwardRef<HTMLElement, GallerySectionProps>(
     const { galleryItems } = useContent();
     const [activeFilter, setActiveFilter] = useState<FilterTab>(defaultFilter);
     const [lightboxItem, setLightboxItem] = useState<GalleryItem | null>(null);
+    const [gridCols, setGridCols] = useState<GridCols>(2);
+    const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
     const headerRef = useScrollReveal<HTMLDivElement>();
 
     useEffect(() => {
       function handleFilterEvent(e: Event) {
         const category = (e as CustomEvent<{ category: GalleryCategory }>).detail.category;
         setActiveFilter(category);
+        setVisibleCount(PAGE_SIZE);
       }
       window.addEventListener('rk:filter-gallery', handleFilterEvent);
       return () => window.removeEventListener('rk:filter-gallery', handleFilterEvent);
     }, []);
 
+    // Reset page when filter changes
+    useEffect(() => { setVisibleCount(PAGE_SIZE); }, [activeFilter]);
+
     const filteredItems =
       activeFilter === 'all'
         ? galleryItems
         : galleryItems.filter((i) => i.category === activeFilter);
+
+    const visibleItems = filteredItems.slice(0, visibleCount);
+    const hasMore = filteredItems.length > visibleCount;
 
     const handleOpenLightbox = useCallback((item: GalleryItem) => setLightboxItem(item), []);
     const handleCloseLightbox = useCallback(() => setLightboxItem(null), []);
@@ -70,39 +83,60 @@ export const GallerySection = forwardRef<HTMLElement, GallerySectionProps>(
             </p>
           </div>
 
-          {/* Filter Tabs */}
-          <div className="flex items-center justify-center gap-2 mb-10 flex-wrap">
-            {tabs.map((tab) => (
-              <button
-                key={tab.value}
-                onClick={() => setActiveFilter(tab.value)}
-                className={`relative font-body text-sm font-medium px-4 py-2 rounded-full transition-all duration-300 ${
-                  activeFilter === tab.value
-                    ? 'bg-pink text-white shadow-card'
-                    : 'bg-white text-text-body hover:text-pink border border-border-light hover:border-pink/40'
-                }`}
-              >
-                {tab.label}
-                {activeFilter === tab.value && (
-                  <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-pink-light" />
-                )}
-              </button>
-            ))}
+          {/* Filter Tabs + Grid Toggle */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-10">
+            {/* Category tabs */}
+            <div className="flex items-center justify-center gap-2 flex-wrap">
+              {tabs.map((tab) => (
+                <button
+                  key={tab.value}
+                  onClick={() => setActiveFilter(tab.value)}
+                  className={`relative font-body text-sm font-medium px-4 py-2 rounded-full transition-all duration-300 ${
+                    activeFilter === tab.value
+                      ? 'bg-pink text-white shadow-card'
+                      : 'bg-white text-text-body hover:text-pink border border-border-light hover:border-pink/40'
+                  }`}
+                >
+                  {tab.label}
+                  {activeFilter === tab.value && (
+                    <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-pink-light" />
+                  )}
+                </button>
+              ))}
+            </div>
+
+            {/* Grid view toggle */}
+            <div className="flex items-center gap-1 bg-white border border-border-light rounded-full px-1 py-1 shadow-sm shrink-0">
+              {([
+                { cols: 1 as GridCols, Icon: AlignJustify,  label: '1 column'  },
+                { cols: 2 as GridCols, Icon: LayoutGrid,    label: '2 columns' },
+                { cols: 3 as GridCols, Icon: Grid3X3,       label: '3 columns' },
+              ] as const).map(({ cols, Icon, label }) => (
+                <button
+                  key={cols}
+                  onClick={() => setGridCols(cols)}
+                  aria-label={label}
+                  className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 ${
+                    gridCols === cols
+                      ? 'bg-pink text-white shadow-sm'
+                      : 'text-text-muted hover:text-pink'
+                  }`}
+                >
+                  <Icon size={15} />
+                </button>
+              ))}
+            </div>
           </div>
 
-          {/* Masonry Grid */}
+          {/* Gallery Grid */}
           <div
             key={activeFilter}
-            className="masonry-grid"
-            style={{ columnCount: 1, columnGap: '1rem' }}
+            style={{
+              columnCount: gridCols,
+              columnGap: '1rem',
+            }}
           >
-            <style>{`
-              .masonry-grid { column-count: 1; column-gap: 1rem; }
-              @media (min-width: 640px)  { .masonry-grid { column-count: 2; } }
-              @media (min-width: 1024px) { .masonry-grid { column-count: 3; } }
-            `}</style>
-
-            {filteredItems.map((item) => (
+            {visibleItems.map((item) => (
               <GalleryCard
                 key={item.id}
                 item={item}
@@ -115,6 +149,21 @@ export const GallerySection = forwardRef<HTMLElement, GallerySectionProps>(
           {filteredItems.length === 0 && (
             <div className="text-center py-20">
               <p className="font-heading text-text-muted text-2xl">No items found</p>
+            </div>
+          )}
+
+          {/* Load More */}
+          {hasMore && (
+            <div className="text-center mt-10">
+              <button
+                onClick={() => setVisibleCount((n) => n + PAGE_SIZE)}
+                className="inline-flex items-center gap-2 font-body font-semibold text-sm px-8 py-3.5 rounded-full border-2 border-pink text-pink hover:bg-pink hover:text-white transition-all duration-300 shadow-sm hover:shadow-card"
+              >
+                Load More
+                <span className="font-normal text-xs opacity-70">
+                  ({filteredItems.length - visibleCount} remaining)
+                </span>
+              </button>
             </div>
           )}
 
