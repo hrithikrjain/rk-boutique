@@ -1,22 +1,14 @@
-// ─── Site Data ────────────────────────────────────────────────────────────────
-// Phase 2 CMS: This file maps to the `site_settings` and `pages` Decap CMS collections.
-// To migrate: extract these constants into public/admin/content/ JSON files
-// and update the CMS config.yml collections accordingly.
-
 import type { SiteData } from '../types';
 
 export const siteData: SiteData = {
   brandName: 'RK Boutique',
   tagline: 'Designer Ethnic & Indo-Western Fashion',
 
-  // Phase 2 CMS field: hero.headline
   heroHeadline: 'Where Every Outfit\nTells a Story',
 
-  // Phase 2 CMS field: hero.subtext
   heroSubtext:
     'Discover our curated collection of designer kurtis, Indo-Western sets & sharara suits, crafted for the modern Indian woman who celebrates every occasion with effortless grace.',
 
-  // Phase 2 CMS fields: about.*
   aboutTitle: 'Our Story',
   aboutBody: [
     'Nestled in the heart of Malad West, RK Boutique has been a cherished destination for women who believe fashion is a form of self-expression.',
@@ -42,7 +34,6 @@ export const siteData: SiteData = {
     { label: 'Visit Us', href: '#contact' },
   ],
 
-  // Phase 2 CMS field: why_us.points[]
   whyUsPoints: [
     {
       id: 'curated',
@@ -88,7 +79,39 @@ export const siteData: SiteData = {
     },
   ],
 
-  // Phase 2 CMS field: instagram.bio
   instagramBio:
     'Shop latest designer kurtis, Indo-Western sets & sharara suits in Malad West at a reasonable price range ✨',
+
+  promoBanner: {
+    enabled: true,
+    text: "Visit us in-store for exclusive deals on new arrivals! Shop No. 7, Maitri Heights, Marve Road, Malad West.",
+  },
+
+  heroSlides: [
+    {
+      image: '/images/gallery/wedding/Screenshot_20260409_124322_Maps.jpg',
+      title: 'Wedding Collection',
+      subtitle: 'Opulent designs for your grand day',
+    },
+    {
+      image: '/images/gallery/party/Screenshot_20260409_124358_Maps.jpg',
+      title: 'Party Wear',
+      subtitle: 'Make every celebration unforgettable',
+    },
+    {
+      image: '/images/gallery/casual/Screenshot_20260409_124548_Maps.jpg',
+      title: 'Casual Collection',
+      subtitle: 'Effortless style for every day',
+    },
+    {
+      image: '/images/gallery/wedding/Screenshot_20260409_124334_Maps.jpg',
+      title: 'Bridal Ensembles',
+      subtitle: 'Heritage craft meets modern silhouette',
+    },
+    {
+      image: '/images/gallery/party/Screenshot_20260409_124415_Maps.jpg',
+      title: 'Festive Looks',
+      subtitle: 'Curated for every occasion',
+    },
+  ],
 };

@@ -8,10 +8,13 @@ import type { GalleryItem, GalleryCategory } from '../../types';
 type FilterTab = 'all' | GalleryCategory;
 
 const tabs: Array<{ value: FilterTab; label: string }> = [
-  { value: 'all', label: 'All Pieces' },
-  { value: 'casual', label: 'Casual' },
-  { value: 'party', label: 'Party Wear' },
+  { value: 'all',     label: 'All Pieces' },
+  { value: 'casual',  label: 'Casual' },
+  { value: 'party',   label: 'Party Wear' },
   { value: 'wedding', label: 'Wedding' },
+  { value: 'coord',   label: 'Co-ord Sets' },
+  { value: 'gown',    label: 'Gowns' },
+  { value: 'kurti',   label: 'Kurtis' },
 ];
 
 interface GallerySectionProps {
@@ -25,7 +28,6 @@ export const GallerySection = forwardRef<HTMLElement, GallerySectionProps>(
     const [lightboxItem, setLightboxItem] = useState<GalleryItem | null>(null);
     const headerRef = useScrollReveal<HTMLDivElement>();
 
-    // Listen for category filter events dispatched from App (via CategorySection)
     useEffect(() => {
       function handleFilterEvent(e: Event) {
         const category = (e as CustomEvent<{ category: GalleryCategory }>).detail.category;
@@ -40,87 +42,64 @@ export const GallerySection = forwardRef<HTMLElement, GallerySectionProps>(
         ? galleryItems
         : galleryItems.filter((i) => i.category === activeFilter);
 
-    const handleOpenLightbox = useCallback((item: GalleryItem) => {
-      setLightboxItem(item);
-    }, []);
-
-    const handleCloseLightbox = useCallback(() => {
-      setLightboxItem(null);
-    }, []);
-
-    const handleNavigate = useCallback((item: GalleryItem) => {
-      setLightboxItem(item);
-    }, []);
+    const handleOpenLightbox = useCallback((item: GalleryItem) => setLightboxItem(item), []);
+    const handleCloseLightbox = useCallback(() => setLightboxItem(null), []);
+    const handleNavigate = useCallback((item: GalleryItem) => setLightboxItem(item), []);
 
     return (
-      <section ref={ref} id="gallery" className="py-24 md:py-32 bg-surface overflow-hidden">
+      <section ref={ref} id="gallery" className="py-20 md:py-28 bg-cream overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
 
-          {/* ── Header ───────────────────────────────────────────────── */}
+          {/* Header */}
           <div ref={headerRef} className="reveal-item text-center mb-12">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-12 bg-accent" />
-              <span className="font-body text-accent text-xs tracking-widest uppercase font-semibold">
+              <div className="h-px w-12 bg-pink" />
+              <span className="font-body text-pink text-xs tracking-widest uppercase font-semibold">
                 Our Collection
               </span>
-              <div className="h-px w-12 bg-accent" />
+              <div className="h-px w-12 bg-pink" />
             </div>
             <h2
-              className="font-display text-text-main font-light leading-tight mb-4"
+              className="font-heading text-brown font-bold leading-tight mb-4"
               style={{ fontSize: 'clamp(2rem, 4.5vw, 3.5rem)' }}
             >
               The Gallery
             </h2>
-            <p className="font-body text-text-muted text-base max-w-md mx-auto leading-relaxed">
+            <p className="font-body text-text-body text-base max-w-md mx-auto leading-relaxed">
               Browse our latest arrivals. Tap any piece to see details, or add it directly to your inquiry.
             </p>
           </div>
 
-          {/* ── Filter Tabs ───────────────────────────────────────────── */}
+          {/* Filter Tabs */}
           <div className="flex items-center justify-center gap-2 mb-10 flex-wrap">
             {tabs.map((tab) => (
               <button
                 key={tab.value}
                 onClick={() => setActiveFilter(tab.value)}
-                className={`relative font-body text-sm font-medium px-5 py-2.5 rounded-full transition-all duration-300 ${
+                className={`relative font-body text-sm font-medium px-4 py-2 rounded-full transition-all duration-300 ${
                   activeFilter === tab.value
-                    ? 'bg-primary text-white shadow-md'
-                    : 'bg-white text-text-muted hover:text-primary hover:bg-surface-dark border border-surface-dark'
+                    ? 'bg-pink text-white shadow-card'
+                    : 'bg-white text-text-body hover:text-pink border border-border-light hover:border-pink/40'
                 }`}
               >
                 {tab.label}
                 {activeFilter === tab.value && (
-                  <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-accent" />
+                  <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-pink-light" />
                 )}
               </button>
             ))}
           </div>
 
-          {/* ── Masonry Grid ──────────────────────────────────────────── */}
-          {/*
-            CSS multi-column masonry: column-count handles mixed aspect ratios
-            naturally — no JS library needed, no forced crops.
-          */}
+          {/* Masonry Grid */}
           <div
-            key={activeFilter} // remount on filter change for clean re-render
+            key={activeFilter}
             className="masonry-grid"
-            style={{
-              columnCount: 1,
-              columnGap: '1rem',
-            }}
+            style={{ columnCount: 1, columnGap: '1rem' }}
           >
-            {/* Responsive column count via inline style + media query via CSS vars */}
             <style>{`
-              .masonry-grid {
-                column-count: 1;
-                column-gap: 1rem;
-              }
-              @media (min-width: 640px) {
-                .masonry-grid { column-count: 2; }
-              }
-              @media (min-width: 1024px) {
-                .masonry-grid { column-count: 3; }
-              }
+              .masonry-grid { column-count: 1; column-gap: 1rem; }
+              @media (min-width: 640px)  { .masonry-grid { column-count: 2; } }
+              @media (min-width: 1024px) { .masonry-grid { column-count: 3; } }
             `}</style>
 
             {filteredItems.map((item) => (
@@ -135,7 +114,7 @@ export const GallerySection = forwardRef<HTMLElement, GallerySectionProps>(
           {/* Empty state */}
           {filteredItems.length === 0 && (
             <div className="text-center py-20">
-              <p className="font-display text-text-muted text-2xl">No items found</p>
+              <p className="font-heading text-text-muted text-2xl">No items found</p>
             </div>
           )}
 
@@ -143,7 +122,7 @@ export const GallerySection = forwardRef<HTMLElement, GallerySectionProps>(
           <div className="text-center mt-12">
             <p className="font-body text-text-muted text-sm">
               Interested in a piece?{' '}
-              <span className="text-primary font-medium">
+              <span className="text-pink font-medium">
                 Add it to your inquiry and we'll share availability on WhatsApp.
               </span>
             </p>
@@ -151,7 +130,6 @@ export const GallerySection = forwardRef<HTMLElement, GallerySectionProps>(
 
         </div>
 
-        {/* ── Lightbox ─────────────────────────────────────────────── */}
         {lightboxItem && (
           <Lightbox
             item={lightboxItem}

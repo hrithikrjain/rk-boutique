@@ -9,57 +9,53 @@ export function TestimonialsSection() {
   const gridRef = useStaggerReveal<HTMLDivElement>({ threshold: 0.08 });
 
   return (
-    <section id="testimonials" className="py-24 md:py-32 bg-primary overflow-hidden">
+    <section id="testimonials" className="py-20 md:py-28 bg-cream-dark overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
 
-        {/* ── Header ───────────────────────────────────────────────────── */}
-        <div ref={headerRef} className="reveal-item text-center mb-14">
+        {/* Header */}
+        <div ref={headerRef} className="reveal-item text-center mb-12">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="h-px w-12 bg-accent/40" />
-            <span className="font-body text-accent text-xs tracking-widest uppercase font-semibold">
+            <div className="h-px w-12 bg-pink/40" />
+            <span className="font-body text-pink text-xs tracking-widest uppercase font-semibold">
               Customer Reviews
             </span>
-            <div className="h-px w-12 bg-accent/40" />
+            <div className="h-px w-12 bg-pink/40" />
           </div>
 
-          {/* Stars row */}
           <div className="flex items-center justify-center gap-1 mb-4">
             {Array.from({ length: 5 }).map((_, i) => (
-              <Star key={i} size={20} className="fill-accent text-accent" />
+              <Star key={i} size={20} className="fill-pink text-pink" />
             ))}
           </div>
 
           <h2
-            className="font-display text-white font-light leading-tight"
+            className="font-heading text-brown font-bold leading-tight"
             style={{ fontSize: 'clamp(2rem, 4.5vw, 3.5rem)' }}
           >
             Loved by Our Customers
           </h2>
-          <p className="font-body text-white/50 text-base mt-3 max-w-md mx-auto leading-relaxed">
+          <p className="font-body text-text-body text-base mt-3 max-w-md mx-auto leading-relaxed">
             Real stories from women who found their perfect look at RK Boutique.
           </p>
         </div>
 
-        {/* ── Reviews Grid ─────────────────────────────────────────────── */}
-        <div
-          ref={gridRef}
-          className="grid grid-cols-1 md:grid-cols-2 gap-5"
-        >
+        {/* Reviews Grid */}
+        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {testimonials.map((testimonial) => (
             <TestimonialCard key={testimonial.id} testimonial={testimonial} />
           ))}
         </div>
 
-        {/* ── Bottom badge ─────────────────────────────────────────────── */}
+        {/* Bottom badge */}
         <div className="flex items-center justify-center gap-3 mt-10">
           <div className="flex items-center gap-1.5">
             <div className="w-5 h-5 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center">
               <span className="text-white text-[9px] font-bold">G</span>
             </div>
-            <span className="font-body text-white/40 text-xs">Verified Google Reviews</span>
+            <span className="font-body text-text-body/60 text-xs">Verified Google Reviews</span>
           </div>
-          <div className="h-px w-8 bg-white/10" />
-          <span className="font-body text-white/40 text-xs">5.0 ★ Average Rating</span>
+          <div className="h-px w-8 bg-border-light" />
+          <span className="font-body text-text-body/60 text-xs">5.0 ★ Average Rating</span>
         </div>
 
       </div>

@@ -2,7 +2,7 @@
 // Phase 2: These types map directly to Decap CMS collection fields.
 // When migrating to CMS, each interface below corresponds to a CMS collection.
 
-export type GalleryCategory = 'casual' | 'party' | 'wedding';
+export type GalleryCategory = 'casual' | 'party' | 'wedding' | 'coord' | 'gown' | 'kurti';
 
 export interface GalleryItem {
   id: string;
@@ -13,6 +13,8 @@ export interface GalleryItem {
   description: string;
   available: boolean;
   sortOrder: number;
+  isBestSeller?: boolean;
+  featured?: boolean;
 }
 
 export interface Testimonial {
@@ -49,6 +51,17 @@ export interface ContactInfo {
   instagramHandle: string;
 }
 
+export interface HeroSlide {
+  image: string;
+  title: string;
+  subtitle: string;
+}
+
+export interface PromoBanner {
+  enabled: boolean;
+  text: string;
+}
+
 export interface SiteData {
   brandName: string;
   tagline: string;
@@ -61,4 +74,6 @@ export interface SiteData {
   navLinks: NavLink[];
   whyUsPoints: WhyUsPoint[];
   instagramBio: string;
+  heroSlides: HeroSlide[];
+  promoBanner: PromoBanner;
 }

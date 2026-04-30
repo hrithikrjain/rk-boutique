@@ -8,7 +8,9 @@
       "code": "RK-CAS-01",
       "description": "A breezy, everyday kurti in soft cotton with delicate prints, perfect for casual outings.",
       "available": true,
-      "sortOrder": 1
+      "sortOrder": 1,
+      "isBestSeller": true,
+      "featured": false
     },
     {
       "id": "cas-02",
@@ -18,7 +20,9 @@
       "code": "RK-CAS-02",
       "description": "Lightweight muslin co-ord set with vibrant block prints, effortlessly stylish for daywear.",
       "available": true,
-      "sortOrder": 2
+      "sortOrder": 2,
+      "isBestSeller": true,
+      "featured": false
     },
     {
       "id": "cas-03",
@@ -28,7 +32,9 @@
       "code": "RK-CAS-03",
       "description": "Floral embroidered kurta paired with straight pants, a go-to ensemble for weekend brunches.",
       "available": true,
-      "sortOrder": 3
+      "sortOrder": 3,
+      "isBestSeller": false,
+      "featured": false
     },
     {
       "id": "cas-04",
@@ -38,7 +44,9 @@
       "code": "RK-CAS-04",
       "description": "Breathable cotton kurti with palazzo bottoms, comfort meets style for all-day wear.",
       "available": true,
-      "sortOrder": 4
+      "sortOrder": 4,
+      "isBestSeller": false,
+      "featured": false
     },
     {
       "id": "cas-05",
@@ -48,7 +56,9 @@
       "code": "RK-CAS-05",
       "description": "Contemporary Indo-Western tunic with modern silhouette, ideal for the fashion-forward woman.",
       "available": true,
-      "sortOrder": 5
+      "sortOrder": 5,
+      "isBestSeller": false,
+      "featured": false
     },
     {
       "id": "par-01",
@@ -58,7 +68,9 @@
       "code": "RK-PAR-01",
       "description": "Luxurious gajji silk sharara set with intricate embroidery, a showstopper for every celebration.",
       "available": true,
-      "sortOrder": 1
+      "sortOrder": 1,
+      "isBestSeller": true,
+      "featured": false
     },
     {
       "id": "par-02",
@@ -68,7 +80,9 @@
       "code": "RK-PAR-02",
       "description": "Flowing anarkali gown with sequin detailing, designed to make heads turn at festive gatherings.",
       "available": true,
-      "sortOrder": 2
+      "sortOrder": 2,
+      "isBestSeller": false,
+      "featured": false
     },
     {
       "id": "par-03",
@@ -78,7 +92,9 @@
       "code": "RK-PAR-03",
       "description": "Rich embroidered top with wide-leg palazzo, the perfect party-ready ensemble.",
       "available": true,
-      "sortOrder": 3
+      "sortOrder": 3,
+      "isBestSeller": false,
+      "featured": false
     },
     {
       "id": "par-04",
@@ -88,7 +104,9 @@
       "code": "RK-PAR-04",
       "description": "Sumptuous velvet Indo-Western co-ord set with modern cuts, glamour meets cultural richness.",
       "available": true,
-      "sortOrder": 4
+      "sortOrder": 4,
+      "isBestSeller": false,
+      "featured": false
     },
     {
       "id": "par-05",
@@ -98,7 +116,9 @@
       "code": "RK-PAR-05",
       "description": "Beautifully embellished kurti suit with contrasting dupatta, ideal for festive occasions.",
       "available": true,
-      "sortOrder": 5
+      "sortOrder": 5,
+      "isBestSeller": false,
+      "featured": false
     },
     {
       "id": "wed-01",
@@ -108,7 +128,9 @@
       "code": "RK-WED-01",
       "description": "Opulent bridal lehenga with heavy zari work and matching blouse, for the bride who dreams of grandeur.",
       "available": true,
-      "sortOrder": 1
+      "sortOrder": 1,
+      "isBestSeller": true,
+      "featured": false
     },
     {
       "id": "wed-02",
@@ -118,7 +140,9 @@
       "code": "RK-WED-02",
       "description": "Exquisite pure silk suit with intricate border work, timeless elegance for wedding ceremonies.",
       "available": true,
-      "sortOrder": 2
+      "sortOrder": 2,
+      "isBestSeller": false,
+      "featured": false
     },
     {
       "id": "wed-03",
@@ -128,7 +152,9 @@
       "code": "RK-WED-03",
       "description": "Heritage-inspired sharara with mirror work and resham embroidery, celebrating the art of Indian craft.",
       "available": true,
-      "sortOrder": 3
+      "sortOrder": 3,
+      "isBestSeller": false,
+      "featured": false
     },
     {
       "id": "wed-04",
@@ -138,7 +164,9 @@
       "code": "RK-WED-04",
       "description": "Regal floor-length anarkali with hand-embroidered dupatta, the epitome of bridal grace.",
       "available": true,
-      "sortOrder": 4
+      "sortOrder": 4,
+      "isBestSeller": false,
+      "featured": false
     },
     {
       "id": "wed-05",
@@ -148,7 +176,9 @@
       "code": "RK-WED-05",
       "description": "Contemporary gown-style lehenga with modern silhouette and traditional motifs, for the fashion-forward bride.",
       "available": true,
-      "sortOrder": 5
+      "sortOrder": 5,
+      "isBestSeller": false,
+      "featured": false
     }
   ]
 }

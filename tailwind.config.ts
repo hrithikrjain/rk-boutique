@@ -8,22 +8,28 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: '#1a0a2e',
-        'primary-light': '#2d1b4e',
-        accent: '#c9a96e',
-        'accent-light': '#e8d5b0',
-        rose: '#b56576',
-        surface: '#f9f4ef',
-        'surface-dark': '#f0e8df',
-        'text-main': '#1c1c2e',
-        'text-muted': '#6b5e7a',
-        gold: '#c9a96e',
-        'gold-light': '#e8d5b0',
-        champagne: '#f5e6c8',
+        // New pink/cream palette (KiaBoutique-inspired)
+        pink: '#FB5FAB',
+        'pink-light': '#fd8ec4',
+        'pink-bg': '#F5D0D9',
+        'pink-muted': '#fce4ee',
+        brown: '#765D5D',
+        cream: '#FAFAFA',
+        'cream-dark': '#F2EAEA',
+        'text-dark': '#140610',
+        'text-body': '#454F5E',
+        'text-muted': '#7a7a7a',
+        'border-light': '#EEEEEE',
+        // Keep surface alias for any remaining references
+        surface: '#FAFAFA',
+        'surface-dark': '#F2EAEA',
       },
       fontFamily: {
         display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
-        body: ['"Inter"', 'system-ui', 'sans-serif'],
+        heading: ['"Merriweather"', 'Georgia', 'serif'],
+        subheading: ['"Amiri"', 'Georgia', 'serif'],
+        body: ['"Open Sans"', '"Inter"', 'system-ui', 'sans-serif'],
+        script: ['"Dancing Script"', 'cursive'],
       },
       fontSize: {
         '7xl': ['4.5rem', { lineHeight: '1.05' }],
@@ -44,6 +50,7 @@ const config: Config = {
         'slide-right': 'slideRight 0.4s ease-out forwards',
         'slide-left': 'slideLeft 0.4s ease-out forwards',
         shimmer: 'shimmer 2s infinite',
+        'carousel-fade': 'carouselFade 0.6s ease-in-out forwards',
       },
       keyframes: {
         fadeUp: {
@@ -66,6 +73,10 @@ const config: Config = {
           '0%': { backgroundPosition: '-200% 0' },
           '100%': { backgroundPosition: '200% 0' },
         },
+        carouselFade: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
       },
       transitionDuration: {
         '400': '400ms',
@@ -76,10 +87,10 @@ const config: Config = {
         xs: '2px',
       },
       boxShadow: {
-        glow: '0 0 30px rgba(201, 169, 110, 0.2)',
-        'glow-lg': '0 0 60px rgba(201, 169, 110, 0.3)',
-        glass: '0 8px 32px rgba(26, 10, 46, 0.2)',
-        'card-hover': '0 20px 60px rgba(26, 10, 46, 0.25)',
+        card: '0 2px 12px rgba(251, 95, 171, 0.08)',
+        'card-hover': '0 8px 32px rgba(251, 95, 171, 0.18)',
+        'pink-glow': '0 0 24px rgba(251, 95, 171, 0.25)',
+        glass: '0 8px 32px rgba(20, 6, 16, 0.1)',
       },
     },
   },

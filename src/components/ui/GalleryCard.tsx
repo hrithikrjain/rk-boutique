@@ -8,6 +8,15 @@ interface GalleryCardProps {
   onOpenLightbox: (item: GalleryItem) => void;
 }
 
+const categoryLabel: Record<string, string> = {
+  casual: 'Casual',
+  party: 'Party Wear',
+  wedding: 'Wedding',
+  coord: 'Co-ord Sets',
+  gown: 'Gowns',
+  kurti: 'Kurtis',
+};
+
 export function GalleryCard({ item, onOpenLightbox }: GalleryCardProps) {
   const { addItem, isInCart } = useCart();
   const inCart = isInCart(item.id);
@@ -17,19 +26,12 @@ export function GalleryCard({ item, onOpenLightbox }: GalleryCardProps) {
     addItem(item);
   }
 
-  const categoryLabel: Record<string, string> = {
-    casual: 'Casual',
-    party: 'Party Wear',
-    wedding: 'Wedding',
-  };
-
   return (
     <div
-      className="group relative overflow-hidden rounded-2xl cursor-pointer bg-primary-light"
+      className="group relative overflow-hidden rounded-2xl cursor-pointer bg-white border border-border-light"
       style={{ breakInside: 'avoid', marginBottom: '1rem' }}
       onClick={() => onOpenLightbox(item)}
     >
-      {/* Image */}
       <img
         src={item.image}
         alt={item.title}
@@ -40,42 +42,32 @@ export function GalleryCard({ item, onOpenLightbox }: GalleryCardProps) {
       <ImageWatermark mode="card" />
 
       {/* Hover overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400 flex flex-col justify-end p-4">
-        {/* Category badge */}
-        <span className="text-accent text-xs font-body font-semibold tracking-widest uppercase mb-1">
-          {categoryLabel[item.category]}
+      <div className="absolute inset-0 bg-gradient-to-t from-text-dark/90 via-text-dark/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400 flex flex-col justify-end p-4">
+        <span className="text-pink text-xs font-body font-semibold tracking-widest uppercase mb-1">
+          {categoryLabel[item.category] ?? item.category}
         </span>
 
-        {/* Title */}
         <h3 className="font-display text-white text-lg font-medium leading-tight mb-1">
           {item.title}
         </h3>
 
-        {/* Code */}
-        <span className="font-body text-accent-light text-xs tracking-wider mb-3">
+        <span className="font-body text-pink-muted text-xs tracking-wider mb-3">
           {item.code}
         </span>
 
-        {/* Actions */}
         <div className="flex items-center gap-2">
           <button
             onClick={handleAdd}
             className={`flex items-center gap-1.5 text-xs font-body font-semibold px-3 py-2 rounded-lg transition-all duration-200 ${
               inCart
                 ? 'bg-green-500/20 text-green-300 border border-green-500/40'
-                : 'bg-accent text-primary hover:bg-accent-light'
+                : 'bg-pink text-white hover:bg-pink-light'
             }`}
           >
             {inCart ? (
-              <>
-                <Check size={13} />
-                Added
-              </>
+              <><Check size={13} /> Added</>
             ) : (
-              <>
-                <ShoppingBag size={13} />
-                Add to Inquiry
-              </>
+              <><ShoppingBag size={13} /> Add to Inquiry</>
             )}
           </button>
 
@@ -88,10 +80,10 @@ export function GalleryCard({ item, onOpenLightbox }: GalleryCardProps) {
         </div>
       </div>
 
-      {/* In-cart indicator (always visible badge) */}
+      {/* In-cart badge */}
       {inCart && (
-        <div className="absolute top-3 right-3 w-6 h-6 rounded-full bg-accent flex items-center justify-center shadow-lg">
-          <Check size={12} className="text-primary" strokeWidth={3} />
+        <div className="absolute top-3 right-3 w-6 h-6 rounded-full bg-pink flex items-center justify-center shadow-lg">
+          <Check size={12} className="text-white" strokeWidth={3} />
         </div>
       )}
     </div>

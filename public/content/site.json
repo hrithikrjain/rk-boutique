@@ -10,5 +10,34 @@
     "Every visit to our store is a personal experience. Our team takes pride in understanding your style, occasion, and comfort, even offering on-the-spot alterations to ensure your perfect fit."
   ],
   "aboutQuote": "Fashion is not just clothing. It is the art of feeling beautiful in your own story.",
-  "instagramBio": "Shop latest designer kurtis, Indo-Western sets & sharara suits in Malad West at a reasonable price range ✨"
+  "instagramBio": "Shop latest designer kurtis, Indo-Western sets & sharara suits in Malad West at a reasonable price range ✨",
+  "promoBannerEnabled": true,
+  "promoBannerText": "Visit us in-store for exclusive deals on new arrivals! Shop No. 7, Maitri Heights, Marve Road, Malad West.",
+  "heroSlides": [
+    {
+      "image": "/images/gallery/wedding/Screenshot_20260409_124322_Maps.jpg",
+      "title": "Wedding Collection",
+      "subtitle": "Opulent designs for your grand day"
+    },
+    {
+      "image": "/images/gallery/party/Screenshot_20260409_124358_Maps.jpg",
+      "title": "Party Wear",
+      "subtitle": "Make every celebration unforgettable"
+    },
+    {
+      "image": "/images/gallery/casual/Screenshot_20260409_124548_Maps.jpg",
+      "title": "Casual Collection",
+      "subtitle": "Effortless style for every day"
+    },
+    {
+      "image": "/images/gallery/wedding/Screenshot_20260409_124334_Maps.jpg",
+      "title": "Bridal Ensembles",
+      "subtitle": "Heritage craft meets modern silhouette"
+    },
+    {
+      "image": "/images/gallery/party/Screenshot_20260409_124415_Maps.jpg",
+      "title": "Festive Looks",
+      "subtitle": "Curated for every occasion"
+    }
+  ]
 }

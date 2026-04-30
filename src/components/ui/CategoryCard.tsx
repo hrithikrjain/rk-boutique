@@ -11,15 +11,21 @@ interface CategoryCardProps {
 }
 
 const categoryAccent: Record<GalleryCategory, string> = {
-  casual: 'from-emerald-900/80',
-  party: 'from-purple-900/80',
+  casual:  'from-emerald-900/80',
+  party:   'from-purple-900/80',
   wedding: 'from-rose-900/80',
+  coord:   'from-teal-900/80',
+  gown:    'from-pink-900/80',
+  kurti:   'from-amber-900/80',
 };
 
 const categoryTag: Record<GalleryCategory, string> = {
-  casual: 'text-emerald-300 bg-emerald-900/40 border-emerald-700/40',
-  party: 'text-purple-300 bg-purple-900/40 border-purple-700/40',
+  casual:  'text-emerald-300 bg-emerald-900/40 border-emerald-700/40',
+  party:   'text-purple-300 bg-purple-900/40 border-purple-700/40',
   wedding: 'text-rose-300 bg-rose-900/40 border-rose-700/40',
+  coord:   'text-teal-300 bg-teal-900/40 border-teal-700/40',
+  gown:    'text-pink-300 bg-pink-900/40 border-pink-700/40',
+  kurti:   'text-amber-300 bg-amber-900/40 border-amber-700/40',
 };
 
 export function CategoryCard({ category, title, description, image, itemCount, onSelect }: CategoryCardProps) {

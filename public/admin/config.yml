@@ -30,7 +30,6 @@ public_folder: /images/uploads
 collections:
 
   # SITE SETTINGS
-  # Writes to public/content/site.json and public/content/contact.json
   - name: site_settings
     label: Site Settings
     files:
@@ -47,7 +46,7 @@ collections:
           - label: Tagline
             name: tagline
             widget: string
-            hint: "Short descriptor under the logo, e.g. Designer Ethnic and Indo-Western Fashion"
+            hint: "Short descriptor under the logo"
 
           - label: Hero Headline
             name: heroHeadline
@@ -58,6 +57,40 @@ collections:
             name: heroSubtext
             widget: text
             hint: "Supporting sentence shown under the hero headline"
+
+          - label: Promo Banner Enabled
+            name: promoBannerEnabled
+            widget: boolean
+            default: true
+            hint: "Toggle the top promotional strip on/off"
+
+          - label: Promo Banner Text
+            name: promoBannerText
+            widget: string
+            hint: "e.g. Visit us in-store for exclusive deals on new arrivals!"
+
+          - label: Hero Slides
+            name: heroSlides
+            widget: list
+            summary: "{{fields.title}}"
+            hint: "Images that rotate in the hero carousel (5 recommended)"
+            fields:
+              - label: Slide Image
+                name: image
+                widget: image
+                choose_url: false
+                media_library:
+                  config:
+                    max_file_size: 614400
+                hint: "Landscape photo, max 600KB"
+              - label: Slide Title
+                name: title
+                widget: string
+                hint: "e.g. Wedding Collection"
+              - label: Slide Subtitle
+                name: subtitle
+                widget: string
+                hint: "e.g. Opulent designs for your grand day"
 
           - label: About Section Label
             name: aboutTitle
@@ -95,12 +128,12 @@ collections:
           - label: WhatsApp Number
             name: whatsapp
             widget: string
-            hint: "Full international format, e.g. +919867426461. Used for the inquiry cart."
+            hint: "Full international format, e.g. +919867426461"
 
           - label: Store Address
             name: address
             widget: text
-            hint: "Full postal address shown in the contact section and footer"
+            hint: "Full postal address"
 
           - label: Google Maps URL
             name: mapsUrl
@@ -110,7 +143,6 @@ collections:
           - label: Instagram URL
             name: instagramUrl
             widget: string
-            hint: "Full URL, e.g. https://www.instagram.com/rkboutique9/"
 
           - label: Instagram Handle
             name: instagramHandle
@@ -118,7 +150,6 @@ collections:
             hint: "Include the @ symbol, e.g. @rkboutique9"
 
   # COLLECTION CARDS
-  # Writes to public/content/categories/casual.json, party.json, wedding.json
   - name: categories
     label: Collection Cards
     files:
@@ -127,40 +158,45 @@ collections:
         label: Casual Collection Card
         file: public/content/categories/casual.json
         fields:
-          - label: Title
-            name: title
-            widget: string
-          - label: Description
-            name: description
-            widget: text
-            hint: "One or two sentences shown on the card"
+          - { label: Title, name: title, widget: string }
+          - { label: Description, name: description, widget: text }
 
       - name: party
         label: Party Wear Collection Card
         file: public/content/categories/party.json
         fields:
-          - label: Title
-            name: title
-            widget: string
-          - label: Description
-            name: description
-            widget: text
+          - { label: Title, name: title, widget: string }
+          - { label: Description, name: description, widget: text }
 
       - name: wedding
         label: Wedding Collection Card
         file: public/content/categories/wedding.json
         fields:
-          - label: Title
-            name: title
-            widget: string
-          - label: Description
-            name: description
-            widget: text
+          - { label: Title, name: title, widget: string }
+          - { label: Description, name: description, widget: text }
+
+      - name: coord
+        label: Co-ord Sets Collection Card
+        file: public/content/categories/coord.json
+        fields:
+          - { label: Title, name: title, widget: string }
+          - { label: Description, name: description, widget: text }
+
+      - name: gown
+        label: Gowns Collection Card
+        file: public/content/categories/gown.json
+        fields:
+          - { label: Title, name: title, widget: string }
+          - { label: Description, name: description, widget: text }
+
+      - name: kurti
+        label: Kurtis Collection Card
+        file: public/content/categories/kurti.json
+        fields:
+          - { label: Title, name: title, widget: string }
+          - { label: Description, name: description, widget: text }
 
   # GALLERY ITEMS
-  # Writes to: public/content/gallery.json as { "items": [...] }
-  # React app fetches /content/gallery.json and reads .items array
-  # Images stored at: public/images/gallery/
   - name: gallery
     label: Gallery
     files:
@@ -183,15 +219,17 @@ collections:
               - label: Title
                 name: title
                 widget: string
-                hint: "Display name on the gallery card and in the inquiry cart"
 
               - label: Category
                 name: category
                 widget: select
                 options:
-                  - { label: "Casual", value: casual }
-                  - { label: "Party Wear", value: party }
-                  - { label: "Wedding", value: wedding }
+                  - { label: "Casual",      value: casual }
+                  - { label: "Party Wear",  value: party }
+                  - { label: "Wedding",     value: wedding }
+                  - { label: "Co-ord Sets", value: coord }
+                  - { label: "Gowns",       value: gown }
+                  - { label: "Kurtis",      value: kurti }
 
               - label: Image
                 name: image
@@ -200,7 +238,7 @@ collections:
                 media_library:
                   config:
                     max_file_size: 409600
-                hint: "Uploads go to public/images/gallery/. Existing photos are already there."
+                hint: "Max 400KB. Uploads go to public/images/gallery/."
 
               - label: Item Code
                 name: code
@@ -225,8 +263,19 @@ collections:
                 default: 1
                 hint: "Lower number appears first within the same category"
 
+              - label: Best Seller
+                name: isBestSeller
+                widget: boolean
+                default: false
+                hint: "Check to feature this item in the Best Sellers carousel"
+
+              - label: Featured
+                name: featured
+                widget: boolean
+                default: false
+                hint: "Check to mark as featured"
+
   # CUSTOMER REVIEWS
-  # Writes to: public/content/testimonials.json as { "items": [...] }
   - name: testimonials
     label: Customer Reviews
     files:
@@ -256,7 +305,6 @@ collections:
                 hint: "Optional. Links to the original Google Maps review."
 
   # WHY CHOOSE US
-  # Writes to: public/content/why-us.json as { "items": [...] }
   - name: why_us
     label: Why Choose Us
     files:

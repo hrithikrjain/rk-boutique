@@ -11,6 +11,15 @@ interface LightboxProps {
   onNavigate: (item: GalleryItem) => void;
 }
 
+const categoryLabel: Record<string, string> = {
+  casual: 'Casual',
+  party: 'Party Wear',
+  wedding: 'Wedding',
+  coord: 'Co-ord Sets',
+  gown: 'Gowns',
+  kurti: 'Kurtis',
+};
+
 export function Lightbox({ item, items, onClose, onNavigate }: LightboxProps) {
   const { addItem, isInCart } = useCart();
   const inCart = isInCart(item.id);
@@ -40,19 +49,13 @@ export function Lightbox({ item, items, onClose, onNavigate }: LightboxProps) {
     };
   }, [onClose, goPrev, goNext]);
 
-  const categoryLabel: Record<string, string> = {
-    casual: 'Casual',
-    party: 'Party Wear',
-    wedding: 'Wedding',
-  };
-
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8"
       onClick={onClose}
     >
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-primary/95 backdrop-blur-sm" />
+      <div className="absolute inset-0 bg-text-dark/95 backdrop-blur-sm" />
 
       {/* Content */}
       <div
@@ -73,13 +76,13 @@ export function Lightbox({ item, items, onClose, onNavigate }: LightboxProps) {
 
         {/* Details panel */}
         <div className="md:w-72 flex flex-col justify-center">
-          <span className="text-accent text-xs font-body font-semibold tracking-widest uppercase mb-2">
-            {categoryLabel[item.category]}
+          <span className="text-pink text-xs font-body font-semibold tracking-widest uppercase mb-2">
+            {categoryLabel[item.category] ?? item.category}
           </span>
           <h2 className="font-display text-white text-2xl md:text-3xl font-medium mb-2 leading-tight">
             {item.title}
           </h2>
-          <p className="font-body text-accent-light text-sm tracking-wider mb-4">
+          <p className="font-body text-pink/70 text-sm tracking-wider mb-4">
             Ref: {item.code}
           </p>
           <p className="font-body text-white/70 text-sm leading-relaxed mb-6">
@@ -91,7 +94,7 @@ export function Lightbox({ item, items, onClose, onNavigate }: LightboxProps) {
             className={`flex items-center justify-center gap-2 w-full py-3 px-6 rounded-xl font-body font-semibold text-sm transition-all duration-200 ${
               inCart
                 ? 'bg-green-500/20 text-green-300 border border-green-500/40'
-                : 'bg-accent text-primary hover:bg-accent-light hover:shadow-glow'
+                : 'bg-pink text-white hover:bg-pink-light hover:shadow-pink-glow'
             }`}
           >
             {inCart ? (
@@ -101,7 +104,6 @@ export function Lightbox({ item, items, onClose, onNavigate }: LightboxProps) {
             )}
           </button>
 
-          {/* Counter */}
           <p className="text-white/30 text-xs font-body text-center mt-4">
             {currentIndex + 1} / {items.length}
           </p>

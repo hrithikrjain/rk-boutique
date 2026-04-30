@@ -1,18 +1,12 @@
-// ─── Gallery Data ─────────────────────────────────────────────────────────────
-// Phase 2 CMS: This maps to the `gallery` Decap CMS collection.
-// Each item here corresponds to a CMS entry with fields:
-// title, category, image (media), code, description, available, sortOrder.
-//
-// Auto-code logic: if `code` is omitted in future CMS entries, the rendering
-// pipeline should generate RK-{CATEGORY_PREFIX}-{ZERO_PADDED_ORDER}.
-
 import type { GalleryItem } from '../types';
 
-// Category label → 3-letter prefix for auto-codes
 export const CATEGORY_PREFIX: Record<string, string> = {
   casual: 'CAS',
   party: 'PAR',
   wedding: 'WED',
+  coord: 'CRD',
+  gown: 'GWN',
+  kurti: 'KRT',
 };
 
 const BASE_PATH = '/images/gallery';
@@ -28,6 +22,7 @@ const casualItems: GalleryItem[] = [
     description: 'A breezy, everyday kurti in soft cotton with delicate prints, perfect for casual outings.',
     available: true,
     sortOrder: 1,
+    isBestSeller: true,
   },
   {
     id: 'cas-02',
@@ -38,6 +33,7 @@ const casualItems: GalleryItem[] = [
     description: 'Lightweight muslin co-ord set with vibrant block prints, effortlessly stylish for daywear.',
     available: true,
     sortOrder: 2,
+    isBestSeller: true,
   },
   {
     id: 'cas-03',
@@ -82,6 +78,7 @@ const partyItems: GalleryItem[] = [
     description: 'Luxurious gajji silk sharara set with intricate embroidery, a showstopper for every celebration.',
     available: true,
     sortOrder: 1,
+    isBestSeller: true,
   },
   {
     id: 'par-02',
@@ -136,6 +133,7 @@ const weddingItems: GalleryItem[] = [
     description: 'Opulent bridal lehenga with heavy zari work and matching blouse, for the bride who dreams of grandeur.',
     available: true,
     sortOrder: 1,
+    isBestSeller: true,
   },
   {
     id: 'wed-02',
@@ -179,23 +177,109 @@ const weddingItems: GalleryItem[] = [
   },
 ];
 
+// ─── Co-ord Sets Collection ───────────────────────────────────────────────────
+// Placeholder items reuse casual images until real co-ord photos are uploaded via CMS
+const coordItems: GalleryItem[] = [
+  {
+    id: 'crd-01',
+    title: 'Floral Co-ord Set',
+    category: 'coord',
+    image: `${BASE_PATH}/casual/Screenshot_20260409_124552_Maps.jpg`,
+    code: 'RK-CRD-01',
+    description: 'Vibrant floral printed co-ord set in breathable fabric, effortlessly matching top and bottom.',
+    available: true,
+    sortOrder: 1,
+    featured: true,
+  },
+  {
+    id: 'crd-02',
+    title: 'Ethnic Print Co-ord',
+    category: 'coord',
+    image: `${BASE_PATH}/casual/Screenshot_20260409_124601_Maps.jpg`,
+    code: 'RK-CRD-02',
+    description: 'Ethnic block-print co-ord set with wide-leg pants, a complete look from head to toe.',
+    available: true,
+    sortOrder: 2,
+  },
+];
+
+// ─── Gowns Collection ─────────────────────────────────────────────────────────
+// Placeholder items reuse party images until real gown photos are uploaded via CMS
+const gownItems: GalleryItem[] = [
+  {
+    id: 'gwn-01',
+    title: 'Floor-Length Anarkali Gown',
+    category: 'gown',
+    image: `${BASE_PATH}/party/Screenshot_20260409_124404_Maps.jpg`,
+    code: 'RK-GWN-01',
+    description: 'Sweeping floor-length anarkali gown with intricate sequin detailing, for grand celebrations.',
+    available: true,
+    sortOrder: 1,
+    featured: true,
+  },
+  {
+    id: 'gwn-02',
+    title: 'Embroidered Evening Gown',
+    category: 'gown',
+    image: `${BASE_PATH}/party/Screenshot_20260409_124510_Maps.jpg`,
+    code: 'RK-GWN-02',
+    description: 'Rich embroidered evening gown with flattering silhouette, the perfect statement piece.',
+    available: true,
+    sortOrder: 2,
+  },
+];
+
+// ─── Kurtis Collection ────────────────────────────────────────────────────────
+// Placeholder items reuse casual images until real kurti photos are uploaded via CMS
+const kurtiItems: GalleryItem[] = [
+  {
+    id: 'krt-01',
+    title: 'Chikankari Kurti',
+    category: 'kurti',
+    image: `${BASE_PATH}/casual/Screenshot_20260409_124557_Maps.jpg`,
+    code: 'RK-KRT-01',
+    description: 'Delicate chikankari hand-embroidered kurti in soft cotton, timeless and elegant.',
+    available: true,
+    sortOrder: 1,
+    featured: true,
+  },
+  {
+    id: 'krt-02',
+    title: 'Printed Georgette Kurti',
+    category: 'kurti',
+    image: `${BASE_PATH}/casual/Screenshot_20260409_124606_Maps.jpg`,
+    code: 'RK-KRT-02',
+    description: 'Flowy georgette kurti with contemporary prints, a versatile wardrobe staple.',
+    available: true,
+    sortOrder: 2,
+  },
+];
+
 // ─── Combined Gallery ─────────────────────────────────────────────────────────
 export const galleryItems: GalleryItem[] = [
   ...weddingItems,
   ...partyItems,
   ...casualItems,
+  ...coordItems,
+  ...gownItems,
+  ...kurtiItems,
 ];
 
-// Helper: get items by category
 export function getItemsByCategory(category: GalleryItem['category']): GalleryItem[] {
   return galleryItems.filter((item) => item.category === category);
 }
 
-// Helper: get first item from each category (for category cards)
 export function getCategoryPreviews(): Record<string, GalleryItem> {
   return {
     casual: casualItems[0],
     party: partyItems[0],
     wedding: weddingItems[0],
+    coord: coordItems[0],
+    gown: gownItems[0],
+    kurti: kurtiItems[0],
   };
+}
+
+export function getBestSellers(): GalleryItem[] {
+  return galleryItems.filter((item) => item.isBestSeller && item.available);
 }

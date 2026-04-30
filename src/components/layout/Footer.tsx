@@ -8,15 +8,15 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-primary border-t border-white/5">
-      {/* ── Main footer content ──────────────────────────────────────── */}
+    <footer className="bg-text-dark border-t border-white/5">
+      {/* Main footer content */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
 
-          {/* ── Column 1: Brand ───────────────────────────────────────── */}
+          {/* Column 1: Brand */}
           <div>
             <div className="flex items-center gap-3 mb-5">
-              <div className="w-10 h-10 rounded-full overflow-hidden border border-accent/30">
+              <div className="w-10 h-10 rounded-full overflow-hidden border border-white/20">
                 <img src="/images/logo.jpg" alt="RK Boutique" className="w-full h-full object-cover" />
               </div>
               <span className="font-display text-white text-xl font-medium">{brandName}</span>
@@ -25,7 +25,6 @@ export function Footer() {
               Your destination for designer kurtis, Indo-Western sets & sharara suits in Malad West, Mumbai.
               Curated fashion for every occasion, every woman.
             </p>
-            {/* Social links */}
             <div className="flex items-center gap-3">
               <a
                 href={contact.instagramUrl}
@@ -47,7 +46,7 @@ export function Footer() {
               </a>
               <a
                 href={getCallUrl(contact.phone)}
-                className="w-9 h-9 rounded-lg bg-white/10 hover:bg-accent flex items-center justify-center text-white/60 hover:text-primary transition-all duration-200"
+                className="w-9 h-9 rounded-lg bg-white/10 hover:bg-pink flex items-center justify-center text-white/60 hover:text-white transition-all duration-200"
                 aria-label="Call"
               >
                 <Phone size={16} />
@@ -55,9 +54,9 @@ export function Footer() {
             </div>
           </div>
 
-          {/* ── Column 2: Quick Links ─────────────────────────────────── */}
+          {/* Column 2: Quick Links */}
           <div>
-            <h4 className="font-display text-white text-base font-medium mb-5 tracking-wide">
+            <h4 className="font-heading text-white text-base font-semibold mb-5 tracking-wide">
               Quick Links
             </h4>
             <ul className="space-y-3">
@@ -65,7 +64,7 @@ export function Footer() {
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="font-body text-white/50 hover:text-accent text-sm transition-colors duration-200"
+                    className="font-body text-white/50 hover:text-pink text-sm transition-colors duration-200"
                   >
                     {link.label}
                   </a>
@@ -74,14 +73,14 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* ── Column 3: Contact ─────────────────────────────────────── */}
+          {/* Column 3: Contact */}
           <div>
-            <h4 className="font-display text-white text-base font-medium mb-5 tracking-wide">
+            <h4 className="font-heading text-white text-base font-semibold mb-5 tracking-wide">
               Contact Us
             </h4>
             <ul className="space-y-4">
               <li className="flex gap-3">
-                <MapPin size={15} className="text-accent flex-shrink-0 mt-0.5" />
+                <MapPin size={15} className="text-pink flex-shrink-0 mt-0.5" />
                 <a
                   href={contact.mapsUrl}
                   target="_blank"
@@ -92,7 +91,7 @@ export function Footer() {
                 </a>
               </li>
               <li className="flex gap-3 items-center">
-                <Phone size={15} className="text-accent flex-shrink-0" />
+                <Phone size={15} className="text-pink flex-shrink-0" />
                 <a
                   href={getCallUrl(contact.phone)}
                   className="font-body text-white/50 hover:text-white/80 text-sm transition-colors duration-200"
@@ -101,7 +100,7 @@ export function Footer() {
                 </a>
               </li>
               <li className="flex gap-3 items-center">
-                <MessageCircle size={15} className="text-accent flex-shrink-0" />
+                <MessageCircle size={15} className="text-pink flex-shrink-0" />
                 <a
                   href={getWhatsAppChatUrl()}
                   target="_blank"
@@ -112,7 +111,7 @@ export function Footer() {
                 </a>
               </li>
               <li className="flex gap-3 items-center">
-                <Instagram size={15} className="text-accent flex-shrink-0" />
+                <Instagram size={15} className="text-pink flex-shrink-0" />
                 <a
                   href={contact.instagramUrl}
                   target="_blank"
@@ -128,7 +127,7 @@ export function Footer() {
         </div>
       </div>
 
-      {/* ── Bottom bar ───────────────────────────────────────────────── */}
+      {/* Bottom bar */}
       <div className="border-t border-white/5">
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-4 flex flex-col sm:flex-row items-center justify-between gap-2">
           <p className="font-body text-white/25 text-xs">
@@ -142,9 +141,7 @@ export function Footer() {
             >
               Admin Login
             </a>
-            <span className="font-body text-white/15 text-xs" aria-hidden="true">
-              |
-            </span>
+            <span className="font-body text-white/15 text-xs" aria-hidden="true">|</span>
             <a
               href="https://morphedai.org"
               target="_blank"

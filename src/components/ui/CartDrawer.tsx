@@ -3,10 +3,18 @@ import { X, Trash2, ShoppingBag, Send, Sparkles } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import { buildWhatsAppUrl } from '../../utils/whatsapp';
 
+const categoryLabel: Record<string, string> = {
+  casual: 'Casual',
+  party: 'Party Wear',
+  wedding: 'Wedding',
+  coord: 'Co-ord Sets',
+  gown: 'Gowns',
+  kurti: 'Kurtis',
+};
+
 export function CartDrawer() {
   const { items, isOpen, closeCart, removeItem, clearCart } = useCart();
 
-  // Lock body scroll when drawer is open
   useEffect(() => {
     if (isOpen) document.body.style.overflow = 'hidden';
     else document.body.style.overflow = '';
@@ -19,28 +27,20 @@ export function CartDrawer() {
     window.open(url, '_blank', 'noopener,noreferrer');
   }
 
-  const categoryLabel: Record<string, string> = {
-    casual: 'Casual',
-    party: 'Party Wear',
-    wedding: 'Wedding',
-  };
-
   return (
     <>
       {/* Backdrop */}
       {isOpen && (
         <div
-          className="fixed inset-0 z-40 bg-primary/60 backdrop-blur-sm"
+          className="fixed inset-0 z-40 bg-text-dark/50 backdrop-blur-sm"
           onClick={closeCart}
         />
       )}
 
-      {/* Drawer — slides from right on desktop, slides from bottom on mobile */}
+      {/* Drawer */}
       <div
-        className={`fixed z-50 bg-gradient-to-b from-primary to-primary-light shadow-2xl transition-transform duration-400 ease-in-out
-          /* Mobile: bottom sheet */
+        className={`fixed z-50 bg-gradient-to-b from-text-dark to-[#1a0a1a] shadow-2xl transition-transform duration-400 ease-in-out
           bottom-0 left-0 right-0 rounded-t-3xl max-h-[85vh]
-          /* Desktop: right side panel */
           md:bottom-auto md:top-0 md:left-auto md:right-0 md:h-full md:w-96 md:rounded-none md:rounded-l-2xl
           ${isOpen
             ? 'translate-y-0 md:translate-x-0'
@@ -56,10 +56,10 @@ export function CartDrawer() {
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
           <div className="flex items-center gap-2">
-            <ShoppingBag size={18} className="text-accent" />
+            <ShoppingBag size={18} className="text-pink" />
             <h2 className="font-display text-white text-xl font-medium">My Selection</h2>
             {items.length > 0 && (
-              <span className="bg-accent text-primary text-xs font-body font-bold px-2 py-0.5 rounded-full">
+              <span className="bg-pink text-white text-xs font-body font-bold px-2 py-0.5 rounded-full">
                 {items.length}
               </span>
             )}
@@ -75,10 +75,9 @@ export function CartDrawer() {
         {/* Content */}
         <div className="flex flex-col h-full overflow-hidden" style={{ maxHeight: 'calc(85vh - 80px)' }}>
           {items.length === 0 ? (
-            /* Empty state */
             <div className="flex-1 flex flex-col items-center justify-center px-6 py-12 text-center">
               <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mb-4">
-                <Sparkles size={28} className="text-accent/40" />
+                <Sparkles size={28} className="text-pink/40" />
               </div>
               <p className="font-display text-white/60 text-lg">No items selected yet</p>
               <p className="font-body text-white/30 text-sm mt-2 leading-relaxed">
@@ -86,7 +85,7 @@ export function CartDrawer() {
               </p>
               <button
                 onClick={closeCart}
-                className="mt-6 text-accent text-sm font-body font-medium hover:text-accent-light transition-colors duration-200"
+                className="mt-6 text-pink text-sm font-body font-medium hover:text-pink-light transition-colors duration-200"
               >
                 Browse Collection →
               </button>
@@ -100,7 +99,6 @@ export function CartDrawer() {
                     key={cartItem.galleryItem.id}
                     className="flex gap-3 bg-white/5 rounded-xl p-3 border border-white/10"
                   >
-                    {/* Thumbnail */}
                     <div className="w-16 h-20 rounded-lg overflow-hidden flex-shrink-0">
                       <img
                         src={cartItem.galleryItem.image}
@@ -109,20 +107,18 @@ export function CartDrawer() {
                       />
                     </div>
 
-                    {/* Details */}
                     <div className="flex-1 min-w-0">
                       <p className="font-body text-white text-sm font-medium leading-tight truncate">
                         {cartItem.galleryItem.title}
                       </p>
-                      <p className="font-body text-accent text-xs mt-0.5">
-                        {categoryLabel[cartItem.galleryItem.category]}
+                      <p className="font-body text-pink text-xs mt-0.5">
+                        {categoryLabel[cartItem.galleryItem.category] ?? cartItem.galleryItem.category}
                       </p>
                       <p className="font-body text-white/40 text-xs mt-0.5 tracking-wider">
                         {cartItem.galleryItem.code}
                       </p>
                     </div>
 
-                    {/* Remove */}
                     <button
                       onClick={() => removeItem(cartItem.galleryItem.id)}
                       className="flex-shrink-0 w-7 h-7 rounded-lg bg-white/5 hover:bg-red-500/20 flex items-center justify-center text-white/30 hover:text-red-400 transition-colors duration-200"
@@ -137,7 +133,7 @@ export function CartDrawer() {
               <div className="px-6 py-4 border-t border-white/10 space-y-3">
                 <button
                   onClick={handleSendInquiry}
-                  className="w-full flex items-center justify-center gap-2 bg-accent hover:bg-accent-light text-primary font-body font-semibold py-3.5 px-6 rounded-xl transition-all duration-200 hover:shadow-glow text-sm"
+                  className="w-full flex items-center justify-center gap-2 bg-pink hover:bg-pink-light text-white font-body font-semibold py-3.5 px-6 rounded-xl transition-all duration-200 hover:shadow-pink-glow text-sm"
                 >
                   <Send size={16} />
                   Send Inquiry on WhatsApp
